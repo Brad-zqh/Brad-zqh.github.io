@@ -3,9 +3,11 @@ title = "关于我"
 
 [profile]
 research_interests = [
-  "计算物理",
-  "数学原理",
-  "定理证明"
+  "时空大数据",
+  "GIS与空间分析",
+  "旅游地理",
+  "人文地理",
+  "可解释机器学习"
 ]
 
 [[sections]]
@@ -15,9 +17,15 @@ source = "bio.md"
 title = "关于我"
 
 [[sections]]
+id = "education"
+type = "markdown"
+source = "education.md"
+title = "教育经历"
+
+[[sections]]
 id = "featured_publications"
 type = "publications"
-title = "精选论文"
+title = "代表性论文"
 filter = "selected"
 limit = 5
 

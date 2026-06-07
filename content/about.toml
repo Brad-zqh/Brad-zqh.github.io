@@ -3,9 +3,11 @@ title = "About"
 
 [profile]
 research_interests = [
-  "Computational Physics",
-  "Mathematical Principles",
-  "Proof of Theorems"
+  "Spatiotemporal Big Data",
+  "GIS & Spatial Analysis",
+  "Tourism Geography",
+  "Human Geography",
+  "Explainable Machine Learning"
 ]
 
 [[sections]]
@@ -13,6 +15,12 @@ id = "about"
 type = "markdown"
 source = "bio.md"
 title = "About"
+
+[[sections]]
+id = "education"
+type = "markdown"
+source = "education.md"
+title = "Education"
 
 [[sections]]
 id = "featured_publications"
@@ -26,4 +34,3 @@ id = "news"
 type = "list"
 title = "News"
 source = "news.toml"
-

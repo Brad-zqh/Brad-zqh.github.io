@@ -1,27 +1,33 @@
 type = "card"
-title = "奖项"
-description = "我获得的荣誉与奖项。"
+title = "奖项与荣誉"
+description = "所获荣誉与奖项。"
 
 [[items]]
-title = "示例奖项"
-subtitle = "颁发机构"
+title = "博士研究生国家奖学金"
+subtitle = "浙江大学"
 date = "2025"
-content = "奖项说明。"
+content = "National Scholarship for PhD Students"
 
 [[items]]
-title = "示例奖项"
-subtitle = "颁发机构"
+title = "争创优秀博士学位论文资助"
+subtitle = "浙江大学"
+date = "2025"
+content = "Outstanding Doctoral Dissertation Support Grant"
+
+[[items]]
+title = "博士研究生求是新星培养计划"
+subtitle = "浙江大学"
+date = "2025"
+content = "Qiushi Rising Star PhD Fellowship"
+
+[[items]]
+title = "香港政府奖学金"
+subtitle = "香港研究资助局"
 date = "2024"
-content = "奖项说明。"
+content = "Hong Kong Government Scholarship"
 
 [[items]]
-title = "示例奖项"
-subtitle = "颁发机构"
+title = "郭谢碧蓉奖学金"
+subtitle = "浙江大学"
 date = "2023"
-content = "奖项说明。"
-
-[[items]]
-title = "示例奖项"
-subtitle = "颁发机构"
-date = "2022"
-content = "奖项说明。"
+content = "Guo Xie Birong Scholarship"

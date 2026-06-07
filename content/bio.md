@@ -1,5 +1,3 @@
-I am a PhD student at the School of Science, University of Example, advised by [Prof. Advisor One](https://example.com) and [Dr. Advisor Two](https://example.com).
+Hi, I am Qiuhao Zhao (赵秋皓). I am a PhD student at the [School of Earth Sciences, Zhejiang University](https://www.zju.edu.cn/english/), supervised by Prof. Pingbin Jin. Prior to this, I received my B.S. in Human Geography and Urban-Rural Planning from Zhejiang University in 2022.
 
-Prior to this, I obtained a BSc degree with First Class Honours in Natural Science from the University of Example.
-
-My current research focuses on investigating the mathematical principles of natural philosophy.
+My research focuses on **spatiotemporal big data**, **tourism geography**, and **urban geography**, with particular interest in applying machine learning and spatial analysis to understand how people experience and interact with places — from tourist destination competitiveness to sustainable urban environments.
