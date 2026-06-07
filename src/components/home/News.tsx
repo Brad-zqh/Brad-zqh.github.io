@@ -13,6 +13,13 @@ interface NewsProps {
     title?: string;
 }
 
+function renderBold(text: string) {
+    const parts = text.split(/\*\*(.+?)\*\*/g);
+    return parts.map((part, i) =>
+        i % 2 === 1 ? <strong key={i}>{part}</strong> : part
+    );
+}
+
 export default function News({ items, title }: NewsProps) {
     const messages = useMessages();
     const resolvedTitle = title || messages.home.news;
@@ -28,7 +35,7 @@ export default function News({ items, title }: NewsProps) {
                 {items.map((item, index) => (
                     <div key={index} className="flex items-start space-x-3">
                         <span className="text-xs text-neutral-500 mt-1 w-16 flex-shrink-0">{item.date}</span>
-                        <p className="text-sm text-neutral-700">{item.content}</p>
+                        <p className="text-sm text-neutral-700">{renderBold(item.content)}</p>
                     </div>
                 ))}
             </div>
