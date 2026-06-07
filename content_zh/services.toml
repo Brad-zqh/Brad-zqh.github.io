@@ -1,9 +1,33 @@
 type = "card"
 title = "学术服务"
-description = "专业服务与社区参与。"
+description = "期刊审稿及学术服务记录。"
 
 [[items]]
-title = "审稿人"
-subtitle = "某期刊"
-date = "2024"
-content = "参与审阅论文。"
+title = "Journal of Retailing and Consumer Services"
+subtitle = "审稿人"
+date = "2023至今"
+content = "3次审稿 · SSCI JCR Q1"
+
+[[items]]
+title = "Annals of Tourism Research"
+subtitle = "审稿人"
+date = "2023至今"
+content = "1次审稿 · SSCI JCR Q1"
+
+[[items]]
+title = "Tourism Management"
+subtitle = "审稿人"
+date = "2023至今"
+content = "1次审稿 · SSCI JCR Q1"
+
+[[items]]
+title = "Tourism Management Perspectives"
+subtitle = "审稿人"
+date = "2023至今"
+content = "1次审稿 · SSCI JCR Q1"
+
+[[items]]
+title = "International Journal of Hospitality Management"
+subtitle = "审稿人"
+date = "2023至今"
+content = "1次审稿 · SSCI JCR Q1"
