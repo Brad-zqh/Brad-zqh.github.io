@@ -26,7 +26,7 @@ export default function Education({ entries, title = 'Education' }: EducationPro
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
         >
-            <h2 className="text-2xl font-serif font-bold text-primary mb-4">{title}</h2>
+            <h2 className="text-2xl font-bold text-primary mb-4">{title}</h2>
             <div className="space-y-4">
                 {entries.map((entry, index) => (
                     <div key={index} className="flex items-start gap-4">
