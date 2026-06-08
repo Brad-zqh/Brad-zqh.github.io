@@ -50,8 +50,8 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ ok: true, skipped: true, reason: 'local', ip })
     }
 
-    const geoRes = await fetch(`https://ipapi.co/${ip}/json/`, { cache: 'no-store' })
-    const geo: { latitude?: number; longitude?: number; city?: string; country_name?: string; error?: boolean; reason?: string } = await geoRes.json()
+    const geoRes = await fetch(`https://ipwho.is/${ip}`, { cache: 'no-store' })
+    const geo: { latitude?: number; longitude?: number; city?: string; country?: string; country_name?: string; error?: boolean; reason?: string } = await geoRes.json()
 
     if (!geo.latitude || !geo.longitude) {
       return NextResponse.json({ ok: true, skipped: true, reason: 'no_geo', ip, geo })
@@ -62,7 +62,7 @@ export async function POST(req: NextRequest) {
       lat: geo.latitude,
       lon: geo.longitude,
       city: geo.city || '',
-      country: geo.country_name || '',
+      country: geo.country || geo.country_name || '',
       time: new Date().toISOString(),
     })
 
