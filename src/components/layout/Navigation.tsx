@@ -168,7 +168,7 @@ export default function Navigation({
             animate={{ y: 0 }}
             transition={{ duration: 0.6 }}
             className={cn(
-              'transition-all duration-300 ease-out bg-[#2563eb]/95',
+              'transition-all duration-300 ease-out bg-[#003F7F]',
               scrolled
                 ? 'backdrop-blur-xl border-b border-white/20 shadow-md'
                 : ''
