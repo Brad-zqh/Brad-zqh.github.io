@@ -4,7 +4,7 @@ import { useEffect } from 'react'
 
 // Replace YOUR_SITE_KEY with your actual mapmyvisitors.com site key
 // Get it from: https://mapmyvisitors.com/ after signing up with brad-zqh.github.io
-const MAPMYVISITORS_KEY = 'YOUR_SITE_KEY'
+const MAPMYVISITORS_KEY = 'Qm1i4VQUaZG_U0fbYkxC0bb2zyMAT3L0hG8paJjf41Q'
 
 export default function VisitorMap() {
   useEffect(() => {
@@ -15,7 +15,7 @@ export default function VisitorMap() {
     const script = document.createElement('script')
     script.id = 'mapmyvisitors'
     script.type = 'text/javascript'
-    script.src = `//mapmyvisitors.com/map.js?cl=ffffff&w=a&t=n&d=${MAPMYVISITORS_KEY}&co=2563eb&ct=ffffff&cmo=3b82f6&cmn=2563eb`
+    script.src = `//mapmyvisitors.com/map.js?d=${MAPMYVISITORS_KEY}&cl=ffffff&w=a`
     document.getElementById('mapmyvisitors-container')?.appendChild(script)
 
     return () => {
