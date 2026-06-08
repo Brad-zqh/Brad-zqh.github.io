@@ -25,11 +25,11 @@ interface NavigationProps {
 
 export default function Navigation({
   items,
-  siteTitle,
+  siteTitle: _siteTitle,
   enableOnePageMode,
   i18n,
   itemsByLocale,
-  siteTitleByLocale,
+  siteTitleByLocale: _siteTitleByLocale,
 }: NavigationProps) {
   const pathname = usePathname();
   const locale = useLocaleStore((state) => state.locale);
