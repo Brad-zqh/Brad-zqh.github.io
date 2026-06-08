@@ -55,10 +55,10 @@ export default function Education({ entries, title = 'Education' }: EducationPro
                                     <p className="text-sm text-neutral-500 dark:text-neutral-400">{entry.department}</p>
                                     <p className="text-sm text-neutral-700 dark:text-neutral-300 mt-0.5">
                                         <span className="font-medium">{entry.degree}</span> student in {entry.field}
-                                        {entry.gpa && (
-                                            <span className="text-neutral-500 dark:text-neutral-400"> · GPA {entry.gpa}</span>
-                                        )}
                                     </p>
+                                    {entry.gpa && (
+                                        <p className="text-sm text-neutral-500 dark:text-neutral-400">GPA {entry.gpa}</p>
+                                    )}
                                 </div>
                                 <p className="text-sm text-neutral-500 dark:text-neutral-400 italic whitespace-nowrap flex-shrink-0">
                                     {entry.start} – {entry.end}
