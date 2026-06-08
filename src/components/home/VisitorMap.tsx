@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import 'leaflet/dist/leaflet.css'
 
 interface Visitor {
   lat: number
@@ -10,9 +11,12 @@ interface Visitor {
   time: string
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type LeafletMap = any
+
 export default function VisitorMap() {
   const mapRef = useRef<HTMLDivElement>(null)
-  const mapInstanceRef = useRef<ReturnType<typeof import('leaflet')['map']> | null>(null)
+  const mapInstanceRef = useRef<LeafletMap>(null)
   const [count, setCount] = useState<number | null>(null)
 
   useEffect(() => {
@@ -22,7 +26,6 @@ export default function VisitorMap() {
       if (!mapRef.current || mapInstanceRef.current) return
 
       const L = (await import('leaflet')).default
-      await import('leaflet/dist/leaflet.css')
 
       const map = L.map(mapRef.current, {
         center: [20, 0],
