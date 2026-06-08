@@ -22,7 +22,7 @@ async function getVisitors(): Promise<Visitor[]> {
     cache: 'no-store',
   })
   const gist: GistResponse = await res.json()
-  return JSON.parse(gist.files[GIST_FILE].content || '[]')
+  return JSON.parse(gist.files[GIST_FILE]?.content || '[]')
 }
 
 async function saveVisitors(visitors: Visitor[]) {
@@ -40,18 +40,21 @@ async function saveVisitors(visitors: Visitor[]) {
 
 export async function POST(req: NextRequest) {
   try {
-    const ip =
-      req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || '8.8.8.8'
+    // Get all forwarded IPs for debugging
+    const forwarded = req.headers.get('x-forwarded-for') || ''
+    const realIp = req.headers.get('x-real-ip') || ''
+    // Try x-real-ip first (more reliable on Vercel), then first x-forwarded-for entry
+    const ip = realIp || forwarded.split(',')[0]?.trim() || ''
 
-    if (ip.startsWith('127.') || ip.startsWith('::1') || ip === 'localhost') {
-      return NextResponse.json({ ok: true, skipped: true })
+    if (!ip || ip.startsWith('127.') || ip.startsWith('::1') || ip === 'localhost') {
+      return NextResponse.json({ ok: true, skipped: true, reason: 'local', ip })
     }
 
     const geoRes = await fetch(`https://ipapi.co/${ip}/json/`, { cache: 'no-store' })
-    const geo: { latitude?: number; longitude?: number; city?: string; country_name?: string } = await geoRes.json()
+    const geo: { latitude?: number; longitude?: number; city?: string; country_name?: string; error?: boolean; reason?: string } = await geoRes.json()
 
     if (!geo.latitude || !geo.longitude) {
-      return NextResponse.json({ ok: true, skipped: true })
+      return NextResponse.json({ ok: true, skipped: true, reason: 'no_geo', ip, geo })
     }
 
     const visitors = await getVisitors()
@@ -64,9 +67,9 @@ export async function POST(req: NextRequest) {
     })
 
     await saveVisitors(visitors)
-    return NextResponse.json({ ok: true })
-  } catch {
-    return NextResponse.json({ ok: false }, { status: 500 })
+    return NextResponse.json({ ok: true, ip, city: geo.city, country: geo.country_name })
+  } catch (err) {
+    return NextResponse.json({ ok: false, error: String(err) }, { status: 500 })
   }
 }
 
