@@ -24,7 +24,7 @@ export default function SelectedPublications({ publications, title, enableOnePag
             transition={{ duration: 0.6, delay: 0.4 }}
         >
             <div className="flex items-center justify-between mb-4">
-                <h2 className="text-2xl font-serif font-bold text-primary">{resolvedTitle}</h2>
+                <h2 className="text-2xl font-serif font-bold text-primary pl-3 border-l-4 border-accent">{resolvedTitle}</h2>
                 <Link
                     href={enableOnePageMode ? "/#publications" : "/publications"}
                     prefetch={true}
@@ -77,9 +77,13 @@ export default function SelectedPublications({ publications, title, enableOnePag
                                     {pub.journal || pub.conference}
                                 </p>
                                 {pub.description && (
-                                    <p className="text-sm text-neutral-500 dark:text-neutral-500 line-clamp-2">
-                                        {pub.description}
-                                    </p>
+                                    <div className="flex flex-wrap gap-1 mt-1">
+                                        {pub.description.split('·').map((tag, i) => (
+                                            <span key={i} className="inline-block px-2 py-0.5 rounded text-xs font-medium bg-accent/10 text-accent border border-accent/20">
+                                                {tag.trim()}
+                                            </span>
+                                        ))}
+                                    </div>
                                 )}
                             </div>
                         </div>

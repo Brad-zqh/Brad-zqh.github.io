@@ -239,9 +239,13 @@ export default function PublicationsList({ config, publications, embedded = fals
                                     )}
 
                                     {pub.description && (
-                                        <p className="text-sm text-neutral-600 dark:text-neutral-500 mb-4 line-clamp-3">
-                                            {pub.description}
-                                        </p>
+                                        <div className="flex flex-wrap gap-1 mb-3">
+                                            {pub.description.split('·').map((tag, i) => (
+                                                <span key={i} className="inline-block px-2 py-0.5 rounded text-xs font-medium bg-accent/10 text-accent border border-accent/20">
+                                                    {tag.trim()}
+                                                </span>
+                                            ))}
+                                        </div>
                                     )}
 
                                     <div className="flex flex-wrap gap-2 mt-auto">
