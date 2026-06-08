@@ -161,8 +161,6 @@ export default function Navigation({
     <Disclosure as="nav" className="fixed top-0 left-0 right-0 z-50">
       {({ open }) => (
         <>
-          {/* Light-blue top fringe */}
-          <div className="h-1 bg-gradient-to-r from-accent/20 via-accent/50 to-accent/20" />
           <motion.div
             initial={{ y: -100 }}
             animate={{ y: 0 }}
