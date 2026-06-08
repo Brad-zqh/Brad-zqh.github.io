@@ -22,9 +22,9 @@
   --primary: #1e293b;
   --primary-light: #334155;
   --primary-dark: #0f172a;
-  --accent: #003F7F;
-  --accent-light: #1a5a9e;
-  --accent-dark: #002d5e;
+  --accent: #1464A0;
+  --accent-light: #2980c4;
+  --accent-dark: #003F7F;
   
   /* Neutral colors */
   --neutral-50: #f8fafc;
@@ -85,7 +85,7 @@
   --color-glass-shadow: var(--glass-shadow);
   
   /* Typography */
-  --font-sans: 'Lato', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-sans: 'Noto Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-serif: 'Georgia CDN', Georgia, serif;
   --font-mono: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
   
