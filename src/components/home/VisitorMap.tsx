@@ -1,85 +1,35 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
-import 'leaflet/dist/leaflet.css'
+import { useEffect } from 'react'
 
-interface Visitor {
-  lat: number
-  lon: number
-  city: string
-  country: string
-  time: string
-}
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type LeafletMap = any
+// Replace YOUR_SITE_KEY with your actual mapmyvisitors.com site key
+// Get it from: https://mapmyvisitors.com/ after signing up with brad-zqh.github.io
+const MAPMYVISITORS_KEY = 'YOUR_SITE_KEY'
 
 export default function VisitorMap() {
-  const mapRef = useRef<HTMLDivElement>(null)
-  const mapInstanceRef = useRef<LeafletMap>(null)
-  const [count, setCount] = useState<number | null>(null)
-
   useEffect(() => {
-    fetch('/api/visitor/', { method: 'POST' }).catch(() => {})
+    // Inject the mapmyvisitors script dynamically (client-side only)
+    const existing = document.getElementById('mapmyvisitors')
+    if (existing) return
 
-    async function initMap() {
-      if (!mapRef.current || mapInstanceRef.current) return
-
-      const L = (await import('leaflet')).default
-
-      const map = L.map(mapRef.current, {
-        center: [20, 0],
-        zoom: 1.5,
-        zoomControl: false,
-        attributionControl: false,
-        scrollWheelZoom: false,
-      })
-      mapInstanceRef.current = map
-
-      L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-        attribution: '© OpenStreetMap © CARTO',
-      }).addTo(map)
-
-      const dotIcon = L.divIcon({
-        className: '',
-        html: `<div style="width:10px;height:10px;border-radius:50%;background:#2563eb;border:2px solid white;box-shadow:0 0 4px rgba(37,99,235,0.6);"></div>`,
-        iconSize: [10, 10],
-        iconAnchor: [5, 5],
-      })
-
-      const res = await fetch('/api/visitor/')
-      const visitors: Visitor[] = await res.json()
-      setCount(visitors.length)
-
-      visitors.forEach((v) => {
-        L.marker([v.lat, v.lon], { icon: dotIcon })
-          .addTo(map)
-          .bindPopup(`<b>${v.city || 'Unknown'}</b><br>${v.country}`)
-      })
-    }
-
-    initMap()
+    const script = document.createElement('script')
+    script.id = 'mapmyvisitors'
+    script.type = 'text/javascript'
+    script.src = `//mapmyvisitors.com/map.js?cl=ffffff&w=a&t=n&d=${MAPMYVISITORS_KEY}&co=2563eb&ct=ffffff&cmo=3b82f6&cmn=2563eb`
+    document.getElementById('mapmyvisitors-container')?.appendChild(script)
 
     return () => {
-      if (mapInstanceRef.current) {
-        mapInstanceRef.current.remove()
-        mapInstanceRef.current = null
-      }
+      document.getElementById('mapmyvisitors')?.remove()
     }
   }, [])
 
   return (
-    <div className="mt-2">
+    <div className="mt-2 flex justify-center">
       <div
-        ref={mapRef}
-        style={{ height: '280px', borderRadius: '12px', overflow: 'hidden' }}
-        className="border border-neutral-200 dark:border-neutral-700"
+        id="mapmyvisitors-container"
+        className="w-full"
+        style={{ minHeight: '200px' }}
       />
-      {count !== null && (
-        <p className="text-xs text-neutral-500 mt-2 text-center">
-          {count} visitor{count !== 1 ? 's' : ''} from around the world
-        </p>
-      )}
     </div>
   )
 }
