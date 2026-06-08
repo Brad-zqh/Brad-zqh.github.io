@@ -235,7 +235,7 @@ export default function PublicationsList({ config, publications, embedded = fals
                                     </p>
 
                                     {pub.status === 'under-review' && (
-                                        <p className="text-sm text-amber-600 dark:text-amber-400 mb-2 font-medium">Under Review</p>
+                                        <p className="text-sm text-accent mb-2 font-medium">Under Review</p>
                                     )}
 
                                     {pub.description && (
