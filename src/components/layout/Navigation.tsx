@@ -181,7 +181,7 @@ export default function Navigation({
                 >
                   <Link
                     href="/"
-                    className="text-2xl lg:text-3xl font-bold text-white hover:text-white/80 transition-colors duration-200"
+                    className="text-base font-serif font-semibold text-white hover:text-white/80 transition-colors duration-200"
                   >
                     Homepage
                   </Link>
