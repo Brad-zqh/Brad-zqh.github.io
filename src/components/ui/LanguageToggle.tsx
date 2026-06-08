@@ -45,9 +45,10 @@ export default function LanguageToggle({ i18n }: LanguageToggleProps) {
         onClick={() => setIsOpen(!isOpen)}
         className={cn(
           'flex items-center justify-center gap-1 px-2 h-10 rounded-lg',
-          'border border-white/30 bg-white/10 hover:bg-white/20',
-          'transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50',
-          'text-white'
+          'border border-neutral-200 bg-background hover:bg-neutral-50',
+          'dark:border-[rgba(148,163,184,0.24)] dark:bg-neutral-800 dark:hover:bg-neutral-700',
+          'transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/50',
+          'text-neutral-600 hover:text-primary dark:text-neutral-400 dark:hover:text-white'
         )}
         title={currentLabel}
       >

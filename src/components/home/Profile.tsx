@@ -184,9 +184,9 @@ export default function Profile({ author, social, features, researchInterests }:
             {researchInterests && researchInterests.length > 0 && (
                 <div className="bg-white dark:bg-neutral-800 rounded-lg p-4 mb-6">
                     <h3 className="font-semibold text-primary mb-3">{messages.profile.researchInterests}</h3>
-                    <div className="flex flex-wrap gap-2">
+                    <div className="flex flex-col gap-2">
                         {researchInterests.map((interest, index) => (
-                            <span key={index} className="inline-block px-2.5 py-1 rounded-full text-xs font-medium bg-white dark:bg-neutral-700 text-accent border border-accent/30">
+                            <span key={index} className="inline-block px-2.5 py-1 rounded-full text-xs font-medium bg-white dark:bg-neutral-700 text-accent border border-accent/30 w-fit">
                                 {interest}
                             </span>
                         ))}
