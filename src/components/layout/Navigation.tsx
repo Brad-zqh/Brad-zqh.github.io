@@ -168,9 +168,9 @@ export default function Navigation({
             animate={{ y: 0 }}
             transition={{ duration: 0.6 }}
             className={cn(
-              'transition-all duration-300 ease-out bg-[#eff8ff]/90',
+              'transition-all duration-300 ease-out bg-[#2563eb]/95',
               scrolled
-                ? 'backdrop-blur-xl border-b border-accent/20 shadow-md'
+                ? 'backdrop-blur-xl border-b border-white/20 shadow-md'
                 : ''
             )}
           >
@@ -183,7 +183,7 @@ export default function Navigation({
                 >
                   <Link
                     href="/"
-                    className="text-xl lg:text-2xl font-serif font-semibold text-primary hover:text-accent transition-colors duration-200"
+                    className="text-2xl lg:text-3xl font-serif font-semibold text-white hover:text-white/80 transition-colors duration-200"
                   >
                     Homepage
                   </Link>
@@ -201,8 +201,8 @@ export default function Navigation({
                           className={cn(
                             'absolute rounded-lg pointer-events-none',
                             hoveredHref && hoveredHref !== activeHref
-                              ? 'bg-accent/[0.07]'
-                              : 'bg-accent/10'
+                              ? 'bg-white/10'
+                              : 'bg-white/20'
                           )}
                           initial={false}
                           animate={{
@@ -231,12 +231,12 @@ export default function Navigation({
                             onClick={() => enableOnePageMode && setActiveHash(`#${item.target}`)}
                             onMouseEnter={() => setHoveredHref(href)}
                             className={cn(
-                              'relative px-3 py-2 text-sm font-medium rounded-lg transition-colors duration-150',
+                              'relative px-3 py-2 text-base font-medium rounded-lg transition-colors duration-150',
                               isActive
-                                ? 'text-primary'
+                                ? 'text-white'
                                 : hoveredHref === href
-                                  ? 'text-primary'
-                                  : 'text-neutral-600'
+                                  ? 'text-white'
+                                  : 'text-white/80'
                             )}
                           >
                             {item.title}
@@ -252,7 +252,7 @@ export default function Navigation({
                 <div className="lg:hidden flex items-center space-x-2">
                   <LanguageToggle i18n={i18n} />
                   <ThemeToggle />
-                  <Disclosure.Button className="inline-flex items-center justify-center p-2 rounded-md text-neutral-600 hover:text-primary hover:bg-neutral-100 dark:hover:bg-neutral-800 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-accent transition-colors duration-200">
+                  <Disclosure.Button className="inline-flex items-center justify-center p-2 rounded-md text-white hover:text-white/80 hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white/50 transition-colors duration-200">
                     <span className="sr-only">{messages.navigation.openMainMenu}</span>
                     <motion.div
                       animate={{ rotate: open ? 180 : 0 }}

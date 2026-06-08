@@ -21,7 +21,7 @@ export default function About({ content, title }: AboutProps) {
         >
             {/* Signature quote */}
             <p
-                className="text-base text-accent/75 mb-6 leading-relaxed"
+                className="text-xl text-accent/75 mb-6 leading-relaxed"
                 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontStyle: 'italic' }}
             >
                 &ldquo;The only way to do great work is to love what you do.&rdquo;
