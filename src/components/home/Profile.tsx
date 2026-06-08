@@ -14,15 +14,19 @@ import { Github, Linkedin } from 'lucide-react';
 import type { SiteConfig } from '@/lib/config';
 import { useMessages } from '@/lib/i18n/useMessages';
 
-// Custom ORCID icon component
+// Custom ORCID icon component — white circle, blue border, blue iD
 const OrcidIcon = ({ className }: { className?: string }) => (
     <svg
         viewBox="0 0 24 24"
-        fill="currentColor"
+        fill="none"
         className={className}
         xmlns="http://www.w3.org/2000/svg"
     >
-        <path d="M12 0C5.372 0 0 5.372 0 12s5.372 12 12 12 12-5.372 12-12S18.628 0 12 0zM7.369 4.378c.525 0 .947.431.947.947s-.422.947-.947.947a.95.95 0 0 1-.947-.947c0-.525.422-.947.947-.947zm-.722 3.038h1.444v10.041H6.647V7.416zm3.562 0h3.9c3.712 0 5.344 2.653 5.344 5.025 0 2.578-2.016 5.025-5.325 5.025h-3.919V7.416zm1.444 1.303v7.444h2.297c3.272 0 4.022-2.484 4.022-3.722 0-2.016-1.284-3.722-4.097-3.722h-2.222z" />
+        <circle cx="12" cy="12" r="11.5" fill="white" stroke="currentColor" strokeWidth="1.5" />
+        <path
+            fill="currentColor"
+            d="M7.369 4.378c.525 0 .947.431.947.947s-.422.947-.947.947a.95.95 0 0 1-.947-.947c0-.525.422-.947.947-.947zm-.722 3.038h1.444v10.041H6.647V7.416zm3.562 0h3.9c3.712 0 5.344 2.653 5.344 5.025 0 2.578-2.016 5.025-5.325 5.025h-3.919V7.416zm1.444 1.303v7.444h2.297c3.272 0 4.022-2.484 4.022-3.722 0-2.016-1.284-3.722-4.097-3.722h-2.222z"
+        />
     </svg>
 );
 
@@ -128,6 +132,19 @@ export default function Profile({ author, social, features, researchInterests }:
                         <span>Google Scholar</span>
                     </a>
                 )}
+                {social.researchgate && (
+                    <a
+                        href={social.researchgate as string}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2.5 text-sm text-neutral-600 dark:text-neutral-400 hover:text-accent transition-colors duration-200 group"
+                    >
+                        <svg viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4 flex-shrink-0 text-accent/70 group-hover:text-accent" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M17.968 18.809c-.28 0-.657-.043-1.019-.154-.403-.124-.672-.28-.912-.44.022-.043 1.168-2.518 1.168-4.946 0-2.367-.893-4.12-2.367-4.12-.787 0-1.23.388-1.48.7-.292.356-.485.836-.55 1.378-.063.528-.035 1.032.019 1.45.013.117.009.226-.047.302-.1.138-.302.139-.326.138-.027-.003-.41-.053-.41-.6 0-.025.003-.079.007-.15.046-.876.282-1.71.7-2.46C13.343 8.74 14.408 8 15.813 8c2.303 0 3.919 1.913 3.919 4.647 0 2.35-1.432 4.674-1.432 4.674s.447.13.844.15c.41.024.805-.097 1.063-.325.33-.292.44-.668.44-1.03 0-.362-.09-.682-.258-.937-.173-.262-.42-.463-.713-.587a.156.156 0 01-.09-.16.153.153 0 01.13-.131 2.59 2.59 0 011.857.646c.46.414.744 1.025.744 1.744 0 .718-.305 1.357-.793 1.79-.47.416-1.116.628-1.791.628h-.765zm-8.37-.028H4.032V5.22h5.566c1.03 0 1.94.238 2.64.688.703.452 1.147 1.097 1.147 1.934 0 1.34-1.076 2.22-2.38 2.525 1.614.26 2.752 1.254 2.752 2.798 0 2.207-1.884 3.616-4.159 3.616zm-.12-7.673H6.206v2.63h3.273c.934 0 1.537-.53 1.537-1.316 0-.787-.603-1.314-1.537-1.314zm.183 4.55H6.206v2.894h3.455c1.06 0 1.722-.606 1.722-1.447 0-.84-.662-1.447-1.722-1.447z"/>
+                        </svg>
+                        <span>ResearchGate</span>
+                    </a>
+                )}
                 {social.orcid && (
                     <a
                         href={social.orcid}
@@ -159,19 +176,6 @@ export default function Profile({ author, social, features, researchInterests }:
                     >
                         <Linkedin className="h-4 w-4 flex-shrink-0 text-accent/70 group-hover:text-accent" />
                         <span>LinkedIn</span>
-                    </a>
-                )}
-                {social.researchgate && (
-                    <a
-                        href={social.researchgate as string}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-2.5 text-sm text-neutral-600 dark:text-neutral-400 hover:text-accent transition-colors duration-200 group"
-                    >
-                        <svg viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4 flex-shrink-0 text-accent/70 group-hover:text-accent" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M17.968 18.809c-.28 0-.657-.043-1.019-.154-.403-.124-.672-.28-.912-.44.022-.043 1.168-2.518 1.168-4.946 0-2.367-.893-4.12-2.367-4.12-.787 0-1.23.388-1.48.7-.292.356-.485.836-.55 1.378-.063.528-.035 1.032.019 1.45.013.117.009.226-.047.302-.1.138-.302.139-.326.138-.027-.003-.41-.053-.41-.6 0-.025.003-.079.007-.15.046-.876.282-1.71.7-2.46C13.343 8.74 14.408 8 15.813 8c2.303 0 3.919 1.913 3.919 4.647 0 2.35-1.432 4.674-1.432 4.674s.447.13.844.15c.41.024.805-.097 1.063-.325.33-.292.44-.668.44-1.03 0-.362-.09-.682-.258-.937-.173-.262-.42-.463-.713-.587a.156.156 0 01-.09-.16.153.153 0 01.13-.131 2.59 2.59 0 011.857.646c.46.414.744 1.025.744 1.744 0 .718-.305 1.357-.793 1.79-.47.416-1.116.628-1.791.628h-.765zm-8.37-.028H4.032V5.22h5.566c1.03 0 1.94.238 2.64.688.703.452 1.147 1.097 1.147 1.934 0 1.34-1.076 2.22-2.38 2.525 1.614.26 2.752 1.254 2.752 2.798 0 2.207-1.884 3.616-4.159 3.616zm-.12-7.673H6.206v2.63h3.273c.934 0 1.537-.53 1.537-1.316 0-.787-.603-1.314-1.537-1.314zm.183 4.55H6.206v2.894h3.455c1.06 0 1.722-.606 1.722-1.447 0-.84-.662-1.447-1.722-1.447z"/>
-                        </svg>
-                        <span>ResearchGate</span>
                     </a>
                 )}
             </div>

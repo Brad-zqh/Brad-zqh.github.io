@@ -201,23 +201,15 @@ export default function PublicationsList({ config, publications, embedded = fals
                         >
                             <div className="flex flex-col md:flex-row gap-6">
                                 {pub.preview && (
-                                    <div className="w-full md:w-64 flex-shrink-0">
-                                        <div className="aspect-video md:aspect-[4/3] relative rounded-lg overflow-hidden bg-neutral-50 dark:bg-neutral-800">
+                                    <div className="w-full md:w-72 flex-shrink-0">
+                                        <div className="aspect-video md:aspect-[4/3] relative rounded-lg overflow-hidden shadow-md bg-neutral-50 dark:bg-neutral-800">
                                             <Image
                                                 src={`/papers/${pub.preview}`}
                                                 alt={pub.title}
                                                 fill
                                                 className="object-contain p-1"
-                                                sizes="(max-width: 768px) 100vw, 256px"
+                                                sizes="(max-width: 768px) 100vw, 288px"
                                             />
-                                            {/* Journal + year label overlay */}
-                                            {(pub.journal || pub.conference) && (
-                                                <div className="absolute bottom-0 left-0 right-0 bg-accent/80 px-2 py-1">
-                                                    <p className="text-white text-[10px] font-medium leading-tight truncate">
-                                                        {pub.journal || pub.conference} · {pub.year}
-                                                    </p>
-                                                </div>
-                                            )}
                                         </div>
                                     </div>
                                 )}

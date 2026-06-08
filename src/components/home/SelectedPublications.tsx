@@ -40,27 +40,21 @@ export default function SelectedPublications({ publications, title, enableOnePag
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.4, delay: 0.1 * index }}
-                        className="bg-neutral-50 dark:bg-neutral-800 rounded-lg shadow-sm border border-neutral-200 dark:border-[rgba(148,163,184,0.24)] hover:shadow-lg transition-all duration-200 hover:scale-[1.02] overflow-hidden"
+                        className="bg-white dark:bg-neutral-800 rounded-lg shadow-sm border border-neutral-200 dark:border-[rgba(148,163,184,0.24)] hover:shadow-lg transition-all duration-200 hover:scale-[1.02] overflow-hidden"
                     >
                         <div className="flex flex-col sm:flex-row">
                             {/* Paper preview image */}
                             {pub.preview && (
-                                <div className="sm:w-56 sm:flex-shrink-0 w-full h-44 sm:h-auto relative bg-neutral-50 dark:bg-neutral-700 overflow-hidden">
-                                    <Image
-                                        src={`/papers/${pub.preview}`}
-                                        alt={`Preview for ${pub.title}`}
-                                        fill
-                                        className="object-contain p-1"
-                                        sizes="(max-width: 640px) 100vw, 224px"
-                                    />
-                                    {/* Journal + year label overlay */}
-                                    {(pub.journal || pub.conference) && (
-                                        <div className="absolute bottom-0 left-0 right-0 bg-accent/80 px-2 py-1">
-                                            <p className="text-white text-[10px] font-medium leading-tight truncate">
-                                                {pub.journal || pub.conference} · {pub.year}
-                                            </p>
-                                        </div>
-                                    )}
+                                <div className="sm:w-64 sm:flex-shrink-0 w-full h-48 sm:h-auto relative">
+                                    <div className="w-full h-full rounded-l-lg overflow-hidden shadow-md">
+                                        <Image
+                                            src={`/papers/${pub.preview}`}
+                                            alt={`Preview for ${pub.title}`}
+                                            fill
+                                            className="object-contain p-1 bg-neutral-50 dark:bg-neutral-700"
+                                            sizes="(max-width: 640px) 100vw, 256px"
+                                        />
+                                    </div>
                                 </div>
                             )}
                             {/* Text content */}
