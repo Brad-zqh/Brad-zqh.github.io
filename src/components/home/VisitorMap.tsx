@@ -12,14 +12,12 @@ interface Visitor {
 
 export default function VisitorMap() {
   const mapRef = useRef<HTMLDivElement>(null)
-  const mapInstanceRef = useRef<any>(null)
+  const mapInstanceRef = useRef<ReturnType<typeof import('leaflet')['map']> | null>(null)
   const [count, setCount] = useState<number | null>(null)
 
   useEffect(() => {
-    // Record this visit
     fetch('/api/visitor', { method: 'POST' }).catch(() => {})
 
-    // Load visitors and render map
     async function initMap() {
       if (!mapRef.current || mapInstanceRef.current) return
 
@@ -39,7 +37,6 @@ export default function VisitorMap() {
         attribution: '© OpenStreetMap © CARTO',
       }).addTo(map)
 
-      // Custom blue dot icon
       const dotIcon = L.divIcon({
         className: '',
         html: `<div style="width:10px;height:10px;border-radius:50%;background:#2563eb;border:2px solid white;box-shadow:0 0 4px rgba(37,99,235,0.6);"></div>`,

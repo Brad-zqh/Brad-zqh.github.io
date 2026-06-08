@@ -4,16 +4,28 @@ const GIST_ID = process.env.GIST_ID!
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN!
 const GIST_FILE = 'visitors.json'
 
-async function getVisitors(): Promise<any[]> {
+interface Visitor {
+  lat: number
+  lon: number
+  city: string
+  country: string
+  time: string
+}
+
+interface GistResponse {
+  files: Record<string, { content: string }>
+}
+
+async function getVisitors(): Promise<Visitor[]> {
   const res = await fetch(`https://api.github.com/gists/${GIST_ID}`, {
     headers: { Authorization: `token ${GITHUB_TOKEN}` },
     cache: 'no-store',
   })
-  const gist = await res.json()
+  const gist: GistResponse = await res.json()
   return JSON.parse(gist.files[GIST_FILE].content || '[]')
 }
 
-async function saveVisitors(visitors: any[]) {
+async function saveVisitors(visitors: Visitor[]) {
   await fetch(`https://api.github.com/gists/${GIST_ID}`, {
     method: 'PATCH',
     headers: {
@@ -31,13 +43,12 @@ export async function POST(req: NextRequest) {
     const ip =
       req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || '8.8.8.8'
 
-    // Skip local IPs
     if (ip.startsWith('127.') || ip.startsWith('::1') || ip === 'localhost') {
       return NextResponse.json({ ok: true, skipped: true })
     }
 
     const geoRes = await fetch(`https://ipapi.co/${ip}/json/`, { cache: 'no-store' })
-    const geo = await geoRes.json()
+    const geo: { latitude?: number; longitude?: number; city?: string; country_name?: string } = await geoRes.json()
 
     if (!geo.latitude || !geo.longitude) {
       return NextResponse.json({ ok: true, skipped: true })
@@ -54,7 +65,7 @@ export async function POST(req: NextRequest) {
 
     await saveVisitors(visitors)
     return NextResponse.json({ ok: true })
-  } catch (e) {
+  } catch {
     return NextResponse.json({ ok: false }, { status: 500 })
   }
 }
@@ -63,7 +74,7 @@ export async function GET() {
   try {
     const visitors = await getVisitors()
     return NextResponse.json(visitors)
-  } catch (e) {
+  } catch {
     return NextResponse.json([], { status: 500 })
   }
 }
