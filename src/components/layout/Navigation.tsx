@@ -199,8 +199,8 @@ export default function Navigation({
                           className={cn(
                             'absolute rounded-lg pointer-events-none',
                             hoveredHref && hoveredHref !== activeHref
-                              ? 'bg-accent/[0.07]'
-                              : 'bg-accent/10'
+                              ? 'bg-white/10'
+                              : 'bg-white/20'
                           )}
                           initial={false}
                           animate={{
