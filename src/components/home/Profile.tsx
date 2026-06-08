@@ -9,9 +9,8 @@ import {
     HeartIcon,
     MapPinIcon
 } from '@heroicons/react/24/outline';
-import { MapPinIcon as MapPinSolidIcon, EnvelopeIcon as EnvelopeSolidIcon } from '@heroicons/react/24/solid';
 import { HeartIcon as HeartSolidIcon } from '@heroicons/react/24/solid';
-import { Github, Linkedin, Pin } from 'lucide-react';
+import { Github, Linkedin } from 'lucide-react';
 import type { SiteConfig } from '@/lib/config';
 import { useMessages } from '@/lib/i18n/useMessages';
 
@@ -39,11 +38,6 @@ export default function Profile({ author, social, features, researchInterests }:
 
     const [hasLiked, setHasLiked] = useState(false);
     const [showThanks, setShowThanks] = useState(false);
-    const [showAddress, setShowAddress] = useState(false);
-    const [isAddressPinned, setIsAddressPinned] = useState(false);
-    const [showEmail, setShowEmail] = useState(false);
-    const [isEmailPinned, setIsEmailPinned] = useState(false);
-    const [lastClickedTooltip, setLastClickedTooltip] = useState<'email' | 'address' | null>(null);
 
     // Check local storage for user's like status
     useEffect(() => {
@@ -68,41 +62,6 @@ export default function Profile({ author, social, features, researchInterests }:
             setShowThanks(false);
         }
     };
-
-    const socialLinks = [
-        ...(social.email ? [{
-            name: messages.profile.email,
-            href: `mailto:${social.email}`,
-            icon: EnvelopeIcon,
-            isEmail: true,
-        }] : []),
-        ...(social.location || social.location_details ? [{
-            name: messages.profile.location,
-            href: social.location_url || '#',
-            icon: MapPinIcon,
-            isLocation: true,
-        }] : []),
-        ...(social.google_scholar ? [{
-            name: 'Google Scholar',
-            href: social.google_scholar,
-            icon: AcademicCapIcon,
-        }] : []),
-        ...(social.orcid ? [{
-            name: 'ORCID',
-            href: social.orcid,
-            icon: OrcidIcon,
-        }] : []),
-        ...(social.github ? [{
-            name: 'GitHub',
-            href: social.github,
-            icon: Github,
-        }] : []),
-        ...(social.linkedin ? [{
-            name: 'LinkedIn',
-            href: social.linkedin,
-            icon: Linkedin,
-        }] : []),
-    ];
 
     return (
         <motion.div
@@ -136,171 +95,85 @@ export default function Profile({ author, social, features, researchInterests }:
                 </p>
             </div>
 
-            {/* Contact Links */}
-            <div className="flex flex-wrap justify-center gap-3 sm:gap-4 mb-6 relative px-2">
-                {socialLinks.map((link) => {
-                    const IconComponent = link.icon;
-                    if (link.isLocation) {
-                        return (
-                            <div key={link.name} className="relative">
-                                <button
-                                    onMouseEnter={() => {
-                                        if (!isAddressPinned) setShowAddress(true);
-                                        setLastClickedTooltip('address');
-                                    }}
-                                    onMouseLeave={() => !isAddressPinned && setShowAddress(false)}
-                                    onClick={() => {
-                                        setIsAddressPinned(!isAddressPinned);
-                                        setShowAddress(!isAddressPinned);
-                                        setLastClickedTooltip('address');
-                                    }}
-                                    className={`p-2 sm:p-2 transition-colors duration-200 ${isAddressPinned
-                                        ? 'text-accent'
-                                        : 'text-neutral-600 dark:text-neutral-400 hover:text-accent'
-                                        }`}
-                                    aria-label={link.name}
-                                >
-                                    {isAddressPinned ? (
-                                        <MapPinSolidIcon className="h-5 w-5" />
-                                    ) : (
-                                        <MapPinIcon className="h-5 w-5" />
-                                    )}
-                                </button>
-
-                                {/* Address tooltip */}
-                                <AnimatePresence>
-                                    {(showAddress || isAddressPinned) && (
-                                        <motion.div
-                                            initial={{ opacity: 0, y: 10, scale: 0.8 }}
-                                            animate={{ opacity: 1, y: -10, scale: 1 }}
-                                            exit={{ opacity: 0, y: -20, scale: 0.8 }}
-                                            className={`absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-full bg-neutral-800 text-white px-4 py-3 rounded-lg text-sm font-medium shadow-lg max-w-[calc(100vw-2rem)] sm:max-w-none sm:whitespace-nowrap ${lastClickedTooltip === 'address' ? 'z-20' : 'z-10'
-                                                }`}
-                                            onMouseEnter={() => {
-                                                if (!isAddressPinned) setShowAddress(true);
-                                                setLastClickedTooltip('address');
-                                            }}
-                                            onMouseLeave={() => !isAddressPinned && setShowAddress(false)}
-                                        >
-                                            <div className="text-center">
-                                                <div className="flex items-center justify-center space-x-2 mb-1">
-                                                    <p className="font-semibold">{messages.profile.workAddress}</p>
-                                                    {!isAddressPinned && (
-                                                        <div className="flex items-center space-x-0.5 text-xs text-neutral-400 opacity-60">
-                                                            <Pin className="h-2.5 w-2.5" />
-                                                            <span className="hidden sm:inline">{messages.profile.click}</span>
-                                                        </div>
-                                                    )}
-                                                </div>
-                                                {social.location_details?.map((line, i) => (
-                                                    <p key={i} className="break-words">{line}</p>
-                                                ))}
-                                                <div className="mt-2 flex flex-col space-y-2 sm:flex-row sm:space-y-0 sm:space-x-2 justify-center">
-                                                    {social.location_url && (
-                                                        <a
-                                                            href={social.location_url}
-                                                            target="_blank"
-                                                            rel="noopener noreferrer"
-                                                            className="inline-flex items-center justify-center space-x-2 bg-accent hover:bg-accent-dark text-white px-3 py-1 rounded-md text-xs font-medium transition-colors duration-200 w-full sm:w-auto"
-                                                        >
-                                                            <MapPinIcon className="h-4 w-4" />
-                                                            <span>{messages.profile.googleMap}</span>
-                                                        </a>
-                                                    )}
-                                                </div>
-
-                                            </div>
-                                            <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-neutral-800"></div>
-                                        </motion.div>
-                                    )}
-                                </AnimatePresence>
-                            </div>
-                        );
-                    }
-                    if (link.isEmail) {
-                        return (
-                            <div key={link.name} className="relative">
-                                <button
-                                    onMouseEnter={() => {
-                                        if (!isEmailPinned) setShowEmail(true);
-                                        setLastClickedTooltip('email');
-                                    }}
-                                    onMouseLeave={() => !isEmailPinned && setShowEmail(false)}
-                                    onClick={() => {
-                                        setIsEmailPinned(!isEmailPinned);
-                                        setShowEmail(!isEmailPinned);
-                                        setLastClickedTooltip('email');
-                                    }}
-                                    className={`p-2 sm:p-2 transition-colors duration-200 ${isEmailPinned
-                                        ? 'text-accent'
-                                        : 'text-neutral-600 dark:text-neutral-400 hover:text-accent'
-                                        }`}
-                                    aria-label={link.name}
-                                >
-                                    {isEmailPinned ? (
-                                        <EnvelopeSolidIcon className="h-5 w-5" />
-                                    ) : (
-                                        <EnvelopeIcon className="h-5 w-5" />
-                                    )}
-                                </button>
-
-                                {/* Email tooltip */}
-                                <AnimatePresence>
-                                    {(showEmail || isEmailPinned) && (
-                                        <motion.div
-                                            initial={{ opacity: 0, y: 10, scale: 0.8 }}
-                                            animate={{ opacity: 1, y: -10, scale: 1 }}
-                                            exit={{ opacity: 0, y: -20, scale: 0.8 }}
-                                            className={`absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-full bg-neutral-800 text-white px-4 py-3 rounded-lg text-sm font-medium shadow-lg max-w-[calc(100vw-2rem)] sm:max-w-none sm:whitespace-nowrap ${lastClickedTooltip === 'email' ? 'z-20' : 'z-10'
-                                                }`}
-                                            onMouseEnter={() => {
-                                                if (!isEmailPinned) setShowEmail(true);
-                                                setLastClickedTooltip('email');
-                                            }}
-                                            onMouseLeave={() => !isEmailPinned && setShowEmail(false)}
-                                        >
-                                            <div className="text-center">
-                                                <div className="flex items-center justify-center space-x-2 mb-1">
-                                                    <p className="font-semibold">{messages.profile.email}</p>
-                                                    {!isEmailPinned && (
-                                                        <div className="flex items-center space-x-0.5 text-xs text-neutral-400 opacity-60">
-                                                            <Pin className="h-2.5 w-2.5" />
-                                                            <span className="hidden sm:inline">{messages.profile.click}</span>
-                                                        </div>
-                                                    )}
-                                                </div>
-                                                <p className="break-words">{social.email}</p>
-                                                <div className="mt-2">
-                                                    <a
-                                                        href={link.href}
-                                                        className="inline-flex items-center justify-center space-x-2 bg-accent hover:bg-accent-dark text-white px-3 py-1 rounded-md text-xs font-medium transition-colors duration-200 w-full sm:w-auto"
-                                                    >
-                                                        <EnvelopeIcon className="h-4 w-4" />
-                                                        <span className="sm:hidden">{messages.profile.send}</span>
-                                                        <span className="hidden sm:inline">{messages.profile.sendEmail}</span>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-neutral-800"></div>
-                                        </motion.div>
-                                    )}
-                                </AnimatePresence>
-                            </div>
-                        );
-                    }
-                    return (
-                        <a
-                            key={link.name}
-                            href={link.href}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="p-2 sm:p-2 text-neutral-600 dark:text-neutral-400 hover:text-accent transition-colors duration-200"
-                            aria-label={link.name}
-                        >
-                            <IconComponent className="h-5 w-5" />
-                        </a>
-                    );
-                })}
+            {/* Contact Info List */}
+            <div className="mb-6 space-y-2">
+                {social.location && (
+                    <a
+                        href={social.location_url || '#'}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2.5 text-sm text-neutral-600 dark:text-neutral-400 hover:text-accent transition-colors duration-200 group"
+                    >
+                        <MapPinIcon className="h-4 w-4 flex-shrink-0 text-accent/70 group-hover:text-accent" />
+                        <span>{social.location}</span>
+                    </a>
+                )}
+                {social.email && (
+                    <a
+                        href={`mailto:${social.email}`}
+                        className="flex items-center gap-2.5 text-sm text-neutral-600 dark:text-neutral-400 hover:text-accent transition-colors duration-200 group"
+                    >
+                        <EnvelopeIcon className="h-4 w-4 flex-shrink-0 text-accent/70 group-hover:text-accent" />
+                        <span className="break-all">{social.email}</span>
+                    </a>
+                )}
+                {social.google_scholar && (
+                    <a
+                        href={social.google_scholar}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2.5 text-sm text-neutral-600 dark:text-neutral-400 hover:text-accent transition-colors duration-200 group"
+                    >
+                        <AcademicCapIcon className="h-4 w-4 flex-shrink-0 text-accent/70 group-hover:text-accent" />
+                        <span>Google Scholar</span>
+                    </a>
+                )}
+                {social.orcid && (
+                    <a
+                        href={social.orcid}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2.5 text-sm text-neutral-600 dark:text-neutral-400 hover:text-accent transition-colors duration-200 group"
+                    >
+                        <OrcidIcon className="h-4 w-4 flex-shrink-0 text-accent/70 group-hover:text-accent" />
+                        <span>ORCID</span>
+                    </a>
+                )}
+                {social.github && (
+                    <a
+                        href={social.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2.5 text-sm text-neutral-600 dark:text-neutral-400 hover:text-accent transition-colors duration-200 group"
+                    >
+                        <Github className="h-4 w-4 flex-shrink-0 text-accent/70 group-hover:text-accent" />
+                        <span>GitHub</span>
+                    </a>
+                )}
+                {social.linkedin && (
+                    <a
+                        href={social.linkedin}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2.5 text-sm text-neutral-600 dark:text-neutral-400 hover:text-accent transition-colors duration-200 group"
+                    >
+                        <Linkedin className="h-4 w-4 flex-shrink-0 text-accent/70 group-hover:text-accent" />
+                        <span>LinkedIn</span>
+                    </a>
+                )}
+                {social.researchgate && (
+                    <a
+                        href={social.researchgate as string}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2.5 text-sm text-neutral-600 dark:text-neutral-400 hover:text-accent transition-colors duration-200 group"
+                    >
+                        <svg viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4 flex-shrink-0 text-accent/70 group-hover:text-accent" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M17.968 18.809c-.28 0-.657-.043-1.019-.154-.403-.124-.672-.28-.912-.44.022-.043 1.168-2.518 1.168-4.946 0-2.367-.893-4.12-2.367-4.12-.787 0-1.23.388-1.48.7-.292.356-.485.836-.55 1.378-.063.528-.035 1.032.019 1.45.013.117.009.226-.047.302-.1.138-.302.139-.326.138-.027-.003-.41-.053-.41-.6 0-.025.003-.079.007-.15.046-.876.282-1.71.7-2.46C13.343 8.74 14.408 8 15.813 8c2.303 0 3.919 1.913 3.919 4.647 0 2.35-1.432 4.674-1.432 4.674s.447.13.844.15c.41.024.805-.097 1.063-.325.33-.292.44-.668.44-1.03 0-.362-.09-.682-.258-.937-.173-.262-.42-.463-.713-.587a.156.156 0 01-.09-.16.153.153 0 01.13-.131 2.59 2.59 0 011.857.646c.46.414.744 1.025.744 1.744 0 .718-.305 1.357-.793 1.79-.47.416-1.116.628-1.791.628h-.765zm-8.37-.028H4.032V5.22h5.566c1.03 0 1.94.238 2.64.688.703.452 1.147 1.097 1.147 1.934 0 1.34-1.076 2.22-2.38 2.525 1.614.26 2.752 1.254 2.752 2.798 0 2.207-1.884 3.616-4.159 3.616zm-.12-7.673H6.206v2.63h3.273c.934 0 1.537-.53 1.537-1.316 0-.787-.603-1.314-1.537-1.314zm.183 4.55H6.206v2.894h3.455c1.06 0 1.722-.606 1.722-1.447 0-.84-.662-1.447-1.722-1.447z"/>
+                        </svg>
+                        <span>ResearchGate</span>
+                    </a>
+                )}
             </div>
 
             {/* Research Interests */}

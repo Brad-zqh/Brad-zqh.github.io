@@ -14,23 +14,23 @@ research_interests = [
 id = "about"
 type = "markdown"
 source = "bio.md"
-title = "About"
+title = "📖 About"
 
 [[sections]]
 id = "education"
 type = "education"
 source = "education.toml"
-title = "Education"
+title = "🎓 Education"
 
 [[sections]]
 id = "featured_publications"
 type = "publications"
-title = "Selected Publications"
+title = "📚 Selected Publications"
 filter = "selected"
 limit = 5
 
 [[sections]]
 id = "news"
 type = "list"
-title = "News"
+title = "📰 News"
 source = "news.toml"

@@ -210,6 +210,14 @@ export default function PublicationsList({ config, publications, embedded = fals
                                                 className="object-contain p-1"
                                                 sizes="(max-width: 768px) 100vw, 256px"
                                             />
+                                            {/* Journal + year label overlay */}
+                                            {(pub.journal || pub.conference) && (
+                                                <div className="absolute bottom-0 left-0 right-0 bg-accent/80 px-2 py-1">
+                                                    <p className="text-white text-[10px] font-medium leading-tight truncate">
+                                                        {pub.journal || pub.conference} · {pub.year}
+                                                    </p>
+                                                </div>
+                                            )}
                                         </div>
                                     </div>
                                 )}

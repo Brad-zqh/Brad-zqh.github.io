@@ -45,7 +45,7 @@ export default function SelectedPublications({ publications, title, enableOnePag
                         <div className="flex flex-col sm:flex-row">
                             {/* Paper preview image */}
                             {pub.preview && (
-                                <div className="sm:w-56 sm:flex-shrink-0 w-full h-44 sm:h-auto relative bg-neutral-50 dark:bg-neutral-700">
+                                <div className="sm:w-56 sm:flex-shrink-0 w-full h-44 sm:h-auto relative bg-neutral-50 dark:bg-neutral-700 overflow-hidden">
                                     <Image
                                         src={`/papers/${pub.preview}`}
                                         alt={`Preview for ${pub.title}`}
@@ -53,6 +53,14 @@ export default function SelectedPublications({ publications, title, enableOnePag
                                         className="object-contain p-1"
                                         sizes="(max-width: 640px) 100vw, 224px"
                                     />
+                                    {/* Journal + year label overlay */}
+                                    {(pub.journal || pub.conference) && (
+                                        <div className="absolute bottom-0 left-0 right-0 bg-accent/80 px-2 py-1">
+                                            <p className="text-white text-[10px] font-medium leading-tight truncate">
+                                                {pub.journal || pub.conference} · {pub.year}
+                                            </p>
+                                        </div>
+                                    )}
                                 </div>
                             )}
                             {/* Text content */}
