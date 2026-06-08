@@ -18,8 +18,8 @@ title = "About"
 
 [[sections]]
 id = "education"
-type = "markdown"
-source = "education.md"
+type = "education"
+source = "education.toml"
 title = "Education"
 
 [[sections]]
