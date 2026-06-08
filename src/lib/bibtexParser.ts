@@ -166,6 +166,16 @@ function buildNameVariants(name: string): Set<string> {
 
   variants.add(cleaned);
 
+  // Also add a version with parenthetical suffixes removed, e.g. "Qiuhao Zhao (Brad)" → "Qiuhao Zhao"
+  const stripped = cleaned.replace(/\s*\(.*?\)\s*/g, '').trim();
+  if (stripped && stripped !== cleaned) {
+    variants.add(stripped);
+    const strippedParts = stripped.split(/\s+/).filter(Boolean);
+    if (strippedParts.length === 2) {
+      variants.add(`${strippedParts[1]} ${strippedParts[0]}`);
+    }
+  }
+
   const parts = cleaned.split(/\s+/).filter(Boolean);
   if (parts.length === 2) {
     variants.add(`${parts[1]} ${parts[0]}`);
