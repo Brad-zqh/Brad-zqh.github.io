@@ -168,10 +168,10 @@ export default function Navigation({
             animate={{ y: 0 }}
             transition={{ duration: 0.6 }}
             className={cn(
-              'transition-all duration-300 ease-out',
+              'transition-all duration-300 ease-out bg-[#eff8ff]/90',
               scrolled
-                ? 'bg-background/80 backdrop-blur-xl border-b border-neutral-200/50 shadow-lg'
-                : 'bg-transparent'
+                ? 'backdrop-blur-xl border-b border-accent/20 shadow-md'
+                : ''
             )}
           >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -185,7 +185,7 @@ export default function Navigation({
                     href="/"
                     className="text-xl lg:text-2xl font-serif font-semibold text-primary hover:text-accent transition-colors duration-200"
                   >
-                    {effectiveSiteTitle}
+                    Homepage
                   </Link>
                 </motion.div>
 

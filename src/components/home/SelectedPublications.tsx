@@ -45,24 +45,24 @@ export default function SelectedPublications({ publications, title, enableOnePag
                         <div className="flex flex-col sm:flex-row">
                             {/* Paper preview image */}
                             {pub.preview && (
-                                <div className="sm:w-64 sm:flex-shrink-0 w-full h-48 sm:h-auto relative">
-                                    <div className="w-full h-full rounded-l-lg overflow-hidden shadow-md">
+                                <div className="sm:w-60 sm:flex-shrink-0 w-full h-44 sm:h-auto relative">
+                                    <div className="w-full h-full rounded-l-lg overflow-hidden shadow-[4px_6px_18px_rgba(0,0,0,0.18)]">
                                         <Image
                                             src={`/papers/${pub.preview}`}
                                             alt={`Preview for ${pub.title}`}
                                             fill
-                                            className="object-contain p-1 bg-neutral-50 dark:bg-neutral-700"
-                                            sizes="(max-width: 640px) 100vw, 256px"
+                                            className="object-cover bg-neutral-50 dark:bg-neutral-700"
+                                            sizes="(max-width: 640px) 100vw, 240px"
                                         />
                                     </div>
                                 </div>
                             )}
                             {/* Text content */}
                             <div className="p-4 flex-1">
-                                <h3 className="font-semibold text-primary mb-2 leading-tight">
+                                <h3 className="text-sm font-semibold text-primary mb-1.5 leading-snug">
                                     <FormattedBibTeXText nodes={pub.titleNodes} fallback={pub.title} />
                                 </h3>
-                                <p className="text-sm text-neutral-600 dark:text-neutral-500 mb-1">
+                                <p className="text-xs text-neutral-600 dark:text-neutral-500 mb-1">
                                     {pub.authors.map((author, idx) => (
                                         <span key={idx}>
                                             <span className={`${author.isHighlighted ? 'font-bold' : ''} ${author.isCoAuthor ? 'underline underline-offset-4 decoration-neutral-400' : ''}`}>
@@ -75,7 +75,7 @@ export default function SelectedPublications({ publications, title, enableOnePag
                                         </span>
                                     ))}
                                 </p>
-                                <p className="text-sm font-semibold italic text-neutral-700 dark:text-neutral-400 mb-2">
+                                <p className="text-xs font-semibold italic text-neutral-700 dark:text-neutral-400 mb-2">
                                     {pub.journal || pub.conference}
                                 </p>
                                 {pub.description && (

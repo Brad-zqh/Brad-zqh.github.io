@@ -19,6 +19,13 @@ export default function About({ content, title }: AboutProps) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
         >
+            {/* Signature quote */}
+            <p
+                className="text-base text-accent/75 mb-6 leading-relaxed"
+                style={{ fontFamily: "'Playfair Display', Georgia, serif", fontStyle: 'italic' }}
+            >
+                &ldquo;The only way to do great work is to love what you do.&rdquo;
+            </p>
             <h2 className="text-2xl font-serif font-bold text-primary mb-4">{resolvedTitle}</h2>
             <div className="text-neutral-700 dark:text-neutral-600 leading-relaxed">
                 <ReactMarkdown
