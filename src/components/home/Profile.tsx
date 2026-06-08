@@ -309,7 +309,7 @@ export default function Profile({ author, social, features, researchInterests }:
                     <h3 className="font-semibold text-primary mb-3">{messages.profile.researchInterests}</h3>
                     <div className="flex flex-wrap gap-2">
                         {researchInterests.map((interest, index) => (
-                            <span key={index} className="inline-block px-2.5 py-1 rounded-full text-xs font-medium bg-accent/10 text-accent border border-accent/20">
+                            <span key={index} className="inline-block px-2.5 py-1 rounded-full text-xs font-medium bg-white dark:bg-neutral-700 text-accent border border-accent/30">
                                 {interest}
                             </span>
                         ))}
