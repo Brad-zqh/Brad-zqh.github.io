@@ -4,6 +4,7 @@ import Profile from '@/components/home/Profile';
 import About from '@/components/home/About';
 import SelectedPublications from '@/components/home/SelectedPublications';
 import News, { NewsItem } from '@/components/home/News';
+import VisitorMap from '@/components/home/VisitorMap';
 import PublicationsList from '@/components/publications/PublicationsList';
 import TextPage from '@/components/pages/TextPage';
 import CardPage from '@/components/pages/CardPage';
@@ -122,6 +123,12 @@ export default function HomePageClient({ dataByLocale, defaultLocale }: HomePage
             </section>
           ))}
         </div>
+      </div>
+
+      {/* Visitor Map */}
+      <div className="mt-12 max-w-2xl mx-auto">
+        <h2 className="text-2xl font-serif font-bold text-primary mb-4">Visitors</h2>
+        <VisitorMap />
       </div>
     </div>
   );
