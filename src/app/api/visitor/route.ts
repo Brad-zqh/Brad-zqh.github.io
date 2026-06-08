@@ -40,34 +40,28 @@ async function saveVisitors(visitors: Visitor[]) {
 
 export async function POST(req: NextRequest) {
   try {
-    // Get all forwarded IPs for debugging
-    const forwarded = req.headers.get('x-forwarded-for') || ''
-    const realIp = req.headers.get('x-real-ip') || ''
-    // Try x-real-ip first (more reliable on Vercel), then first x-forwarded-for entry
-    const ip = realIp || forwarded.split(',')[0]?.trim() || ''
+    // Use Vercel's built-in geo headers — no external API needed
+    const lat = req.headers.get('x-vercel-ip-latitude')
+    const lon = req.headers.get('x-vercel-ip-longitude')
+    const city = req.headers.get('x-vercel-ip-city') || ''
+    const country = req.headers.get('x-vercel-ip-country') || ''
 
-    if (!ip || ip.startsWith('127.') || ip.startsWith('::1') || ip === 'localhost') {
-      return NextResponse.json({ ok: true, skipped: true, reason: 'local', ip })
-    }
-
-    const geoRes = await fetch(`https://ipwho.is/${ip}`, { cache: 'no-store' })
-    const geo: { latitude?: number; longitude?: number; city?: string; country?: string; country_name?: string; error?: boolean; reason?: string } = await geoRes.json()
-
-    if (!geo.latitude || !geo.longitude) {
-      return NextResponse.json({ ok: true, skipped: true, reason: 'no_geo', ip, geo })
+    if (!lat || !lon) {
+      // Fallback: dev environment has no geo headers
+      return NextResponse.json({ ok: true, skipped: true, reason: 'no_geo_headers' })
     }
 
     const visitors = await getVisitors()
     visitors.push({
-      lat: geo.latitude,
-      lon: geo.longitude,
-      city: geo.city || '',
-      country: geo.country || geo.country_name || '',
+      lat: parseFloat(lat),
+      lon: parseFloat(lon),
+      city: decodeURIComponent(city),
+      country,
       time: new Date().toISOString(),
     })
 
     await saveVisitors(visitors)
-    return NextResponse.json({ ok: true, ip, city: geo.city, country: geo.country_name })
+    return NextResponse.json({ ok: true, city: decodeURIComponent(city), country })
   } catch (err) {
     return NextResponse.json({ ok: false, error: String(err) }, { status: 500 })
   }
