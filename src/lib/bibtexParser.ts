@@ -73,7 +73,9 @@ export function parseBibTeX(bibtexContent: string, locale?: string): Publication
       year,
       month: monthMapping[tags.month?.toLowerCase()] ? String(month) : tags.month,
       type,
-      status: 'published',
+      status: (tags.note?.toLowerCase().includes('under review') || tags.note?.toLowerCase().includes('under-review'))
+        ? 'under-review' as const
+        : 'published' as const,
       tags: keywords,
       keywords,
       researchArea: detectResearchArea(tags.title, keywords),
@@ -88,7 +90,7 @@ export function parseBibTeX(bibtexContent: string, locale?: string): Publication
       url: tags.url,
       code: tags.code,
       abstract: cleanBibTeXString(tags.abstract),
-      description: cleanBibTeXString(tags.description || tags.note),
+      description: cleanBibTeXString(tags.description),
       selected,
       preview,
 

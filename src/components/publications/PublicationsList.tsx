@@ -230,9 +230,13 @@ export default function PublicationsList({ config, publications, embedded = fals
                                             </span>
                                         ))}
                                     </p>
-                                    <p className="text-sm font-medium text-neutral-800 dark:text-neutral-600 mb-3">
+                                    <p className="text-sm font-medium text-neutral-800 dark:text-neutral-600 mb-1">
                                         {pub.journal || pub.conference} {pub.year}
                                     </p>
+
+                                    {pub.status === 'under-review' && (
+                                        <p className="text-sm text-amber-600 dark:text-amber-400 mb-2 font-medium">Under Review</p>
+                                    )}
 
                                     {pub.description && (
                                         <p className="text-sm text-neutral-600 dark:text-neutral-500 mb-4 line-clamp-3">
