@@ -50,10 +50,6 @@ export default function Navigation({
     return itemsByLocale?.[resolvedLocale] || itemsByLocale?.[i18n.defaultLocale] || items;
   }, [i18n.defaultLocale, items, itemsByLocale, resolvedLocale]);
 
-  const effectiveSiteTitle = useMemo(() => {
-    return siteTitleByLocale?.[resolvedLocale] || siteTitleByLocale?.[i18n.defaultLocale] || siteTitle;
-  }, [i18n.defaultLocale, resolvedLocale, siteTitle, siteTitleByLocale]);
-
   useEffect(() => {
     const handleScroll = () => {
       const isScrolled = window.scrollY > 20;
