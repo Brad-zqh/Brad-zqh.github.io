@@ -20,7 +20,7 @@ export default function VisitorMap() {
   const [count, setCount] = useState<number | null>(null)
 
   useEffect(() => {
-    fetch('/api/visitor', { method: 'POST' }).catch(() => {})
+    fetch('/api/visitor/', { method: 'POST' }).catch(() => {})
 
     async function initMap() {
       if (!mapRef.current || mapInstanceRef.current) return
@@ -47,7 +47,7 @@ export default function VisitorMap() {
         iconAnchor: [5, 5],
       })
 
-      const res = await fetch('/api/visitor')
+      const res = await fetch('/api/visitor/')
       const visitors: Visitor[] = await res.json()
       setCount(visitors.length)
 
