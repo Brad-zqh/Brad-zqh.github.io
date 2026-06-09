@@ -5,6 +5,7 @@ host = "University of Tokyo"
 type = "Poster"
 year = "Nov. 2025"
 photos = ["/conference/IPAS 2025.jpg"]
+image_position = "top"
 
 [[entries]]
 name = "APacCHRIE 2025"

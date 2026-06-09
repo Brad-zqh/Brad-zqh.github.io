@@ -11,6 +11,7 @@ export interface ConferenceEntry {
     type: 'Oral' | 'Poster';
     year: string;
     photos?: string[];
+    image_position?: string; // e.g. 'top', 'center', 'bottom'
 }
 
 interface ConferencesProps {
@@ -77,6 +78,7 @@ export default function Conferences({ entries, title = 'Conferences', compact = 
                                             alt={entry.name}
                                             fill
                                             className="object-cover bg-neutral-50 dark:bg-neutral-700"
+                                            style={{ objectPosition: entry.image_position || 'center' }}
                                             sizes="(max-width: 640px) 100vw, 240px"
                                         />
                                     </div>
@@ -128,6 +130,7 @@ export default function Conferences({ entries, title = 'Conferences', compact = 
                                             width={56}
                                             height={56}
                                             className="w-full h-full object-cover"
+                                            style={{ objectPosition: entry.image_position || 'center' }}
                                         />
                                     </button>
                                 )}
