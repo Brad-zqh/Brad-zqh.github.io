@@ -1,0 +1,4 @@
+type = "conference"
+title = "Conferences"
+description = "Academic conferences and presentations by Qiuhao Zhao."
+source = "conferences.toml"

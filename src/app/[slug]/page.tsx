@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation';
-import { getPageConfig, getMarkdownContent, getBibtexContent } from '@/lib/content';
+import { getPageConfig, getMarkdownContent, getBibtexContent, getTomlContent } from '@/lib/content';
 import { getConfig } from '@/lib/config';
 import { parseBibTeX } from '@/lib/bibtexParser';
 import DynamicPageClient, { type DynamicPageLocaleData } from '@/components/pages/DynamicPageClient';
@@ -8,7 +8,9 @@ import {
   PublicationPageConfig,
   TextPageConfig,
   CardPageConfig,
+  ConferencePageConfig,
 } from '@/types/page';
+import { ConferenceEntry } from '@/components/home/Conferences';
 
 import { Metadata } from 'next';
 import { getRuntimeI18nConfig } from '@/lib/i18n/config';
@@ -44,6 +46,16 @@ function loadDynamicPageData(slug: string, locale?: string): DynamicPageLocaleDa
     return {
       type: 'card',
       config: pageConfig as CardPageConfig,
+    };
+  }
+
+  if (pageConfig.type === 'conference') {
+    const confConfig = pageConfig as ConferencePageConfig;
+    const confData = getTomlContent<{ entries: ConferenceEntry[] }>(confConfig.source, locale);
+    return {
+      type: 'conference',
+      config: confConfig,
+      entries: confData?.entries || [],
     };
   }
 

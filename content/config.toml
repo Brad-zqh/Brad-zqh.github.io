@@ -54,6 +54,12 @@ target = "publications"
 href = "/publications"
 
 [[navigation]]
+title = "Conferences"
+type = "page"
+target = "conferences-page"
+href = "/conferences-page"
+
+[[navigation]]
 title = "Awards"
 type = "page"
 target = "awards"

@@ -3,21 +3,28 @@ name = "APacCHRIE 2025"
 full_name = "Asia Pacific Council on Hotel, Restaurant and Institutional Education Annual Conference"
 type = "Oral"
 year = "2025"
-photos = ["/conference/APacCHRIE 2025.jpg", "/conference/APacCHRIE 2025 -2.jpg"]
+photos = ["/conference/APacCHRIE 2025.jpg", "/conference/draft/APacCHRIE 2025 -2.jpg"]
 
 [[entries]]
 name = "IMPACT 2025"
-full_name = "International Conference on Innovation and Management in Applied Sciences and Computing Technologies"
+full_name = "International Conference on Innovation and Management"
 type = "Oral"
 year = "2025"
 photos = ["/conference/IMPACT 2025.jpg"]
 
 [[entries]]
 name = "IPAS 2025"
-full_name = "International Planning and Architecture Symposium"
+full_name = "International Conference on Planetary Actions for Sustainability (University of Tokyo)"
 type = "Poster"
 year = "2025"
-photos = ["/conference/IPAS 2025.jpg", "/conference/IPAS 2025 -2.jpg"]
+photos = ["/conference/IPAS International Conference onPlanetary Actionsfor Sustainability （University of Tokyo).jpg"]
+
+[[entries]]
+name = "National Tourism Geography Annual Conference (全国旅游地理学年会)"
+full_name = "2024 National Tourism Geography Annual Conference"
+type = "Oral"
+year = "2024"
+photos = ["/conference/2024年全国旅游地理学年会.jpg"]
 
 [[entries]]
 name = "National Human Geography Conference (全国人文地理学大会)"
