@@ -114,6 +114,7 @@ export default function HomePageClient({ dataByLocale, defaultLocale }: HomePage
                         key={section.id}
                         entries={section.conferenceEntries || []}
                         title={section.title}
+                        compact={true}
                       />
                     );
                   default:
