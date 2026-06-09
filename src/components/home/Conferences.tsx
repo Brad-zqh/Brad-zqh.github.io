@@ -84,34 +84,52 @@ export default function Conferences({ entries, title = 'Conferences', compact = 
                             )}
 
                             {/* Text content */}
-                            <div className="p-4 flex-1">
-                                <div className="flex items-start justify-between gap-2 mb-1">
-                                    <div className="flex items-center gap-2 flex-wrap">
-                                        <h3 className="text-sm font-semibold text-primary leading-snug">
-                                            {entry.name}
-                                        </h3>
-                                        <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium flex-shrink-0 ${
-                                            entry.type === 'Oral'
-                                                ? 'bg-accent/10 text-accent border border-accent/20'
-                                                : 'bg-neutral-100 dark:bg-neutral-700 text-neutral-600 dark:text-neutral-300 border border-neutral-200 dark:border-neutral-600'
-                                        }`}>
-                                            {entry.type}
-                                        </span>
+                            <div className="p-4 flex-1 flex gap-3">
+                                <div className="flex-1 min-w-0">
+                                    <div className="flex items-start justify-between gap-2 mb-1">
+                                        <div className="flex items-center gap-2 flex-wrap">
+                                            <h3 className="text-sm font-semibold text-primary leading-snug">
+                                                {entry.name}
+                                            </h3>
+                                            <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium flex-shrink-0 ${
+                                                entry.type === 'Oral'
+                                                    ? 'bg-accent/10 text-accent border border-accent/20'
+                                                    : 'bg-neutral-100 dark:bg-neutral-700 text-neutral-600 dark:text-neutral-300 border border-neutral-200 dark:border-neutral-600'
+                                            }`}>
+                                                {entry.type}
+                                            </span>
+                                        </div>
+                                        <p className="text-xs text-neutral-500 dark:text-neutral-400 italic whitespace-nowrap flex-shrink-0">
+                                            {entry.year}
+                                        </p>
                                     </div>
-                                    <p className="text-xs text-neutral-500 dark:text-neutral-400 italic whitespace-nowrap flex-shrink-0">
-                                        {entry.year}
-                                    </p>
+
+                                    {entry.full_name && (
+                                        <p className="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed">
+                                            {entry.full_name}
+                                        </p>
+                                    )}
+                                    {entry.host && (
+                                        <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-0.5">
+                                            {entry.host}
+                                        </p>
+                                    )}
                                 </div>
 
-                                {entry.full_name && (
-                                    <p className="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed">
-                                        {entry.full_name}
-                                    </p>
-                                )}
-                                {entry.host && (
-                                    <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-0.5">
-                                        {entry.host}
-                                    </p>
+                                {/* Small thumbnail only in compact (homepage) mode */}
+                                {compact && entry.photos && entry.photos.length > 0 && (
+                                    <button
+                                        onClick={() => setLightbox({ src: entry.photos![0], name: entry.name })}
+                                        className="flex-shrink-0 w-14 h-14 rounded-md overflow-hidden border border-neutral-200 dark:border-neutral-700 opacity-80 hover:opacity-100 hover:scale-105 transition-all duration-200 focus:outline-none self-center"
+                                    >
+                                        <Image
+                                            src={entry.photos[0]}
+                                            alt={entry.name}
+                                            width={56}
+                                            height={56}
+                                            className="w-full h-full object-cover"
+                                        />
+                                    </button>
                                 )}
                             </div>
                         </div>
