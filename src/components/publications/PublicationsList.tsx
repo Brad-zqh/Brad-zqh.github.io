@@ -240,7 +240,7 @@ export default function PublicationsList({ config, publications, embedded = fals
                                         <p className="text-sm text-accent mb-2 font-medium">Under Review</p>
                                     )}
 
-                                    {pub.description && (
+                                    {pub.description && pub.status !== 'under-review' && (
                                         <div className="flex flex-wrap gap-1 mb-3">
                                             {pub.description.split('·').map((tag, i) => (
                                                 <span key={i} className="inline-block px-2 py-0.5 rounded text-xs font-medium bg-accent/10 text-accent border border-accent/20">
