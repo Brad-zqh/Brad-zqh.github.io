@@ -17,58 +17,34 @@ interface ConferencesProps {
     title?: string;
 }
 
-function PhotoGallery({ photos, name }: { photos: string[]; name: string }) {
-    const [lightbox, setLightbox] = useState<string | null>(null);
-
+function Lightbox({ src, name, onClose }: { src: string; name: string; onClose: () => void }) {
     return (
-        <>
-            <div className="flex gap-1.5 flex-shrink-0">
-                {photos.slice(0, 2).map((photo, i) => (
-                    <button
-                        key={i}
-                        onClick={() => setLightbox(photo)}
-                        className="w-16 h-16 rounded-lg overflow-hidden border border-neutral-200 dark:border-neutral-700 hover:scale-105 transition-transform duration-200 focus:outline-none"
-                        title={`${name} photo ${i + 1}`}
-                    >
-                        <Image
-                            src={photo}
-                            alt={`${name} photo ${i + 1}`}
-                            width={64}
-                            height={64}
-                            className="w-full h-full object-cover"
-                        />
-                    </button>
-                ))}
-            </div>
-
-            {/* Lightbox */}
-            {lightbox && (
-                <div
-                    className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4"
-                    onClick={() => setLightbox(null)}
+        <div
+            className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4"
+            onClick={onClose}
+        >
+            <div className="relative max-w-3xl max-h-[80vh]" onClick={(e) => e.stopPropagation()}>
+                <Image
+                    src={src}
+                    alt={name}
+                    width={900}
+                    height={600}
+                    className="object-contain rounded-lg max-h-[80vh] w-auto"
+                />
+                <button
+                    onClick={onClose}
+                    className="absolute top-2 right-2 bg-black/50 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm hover:bg-black/70"
                 >
-                    <div className="relative max-w-3xl max-h-[80vh]">
-                        <Image
-                            src={lightbox}
-                            alt={name}
-                            width={900}
-                            height={600}
-                            className="object-contain rounded-lg max-h-[80vh] w-auto"
-                        />
-                        <button
-                            onClick={() => setLightbox(null)}
-                            className="absolute top-2 right-2 bg-black/50 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm hover:bg-black/70"
-                        >
-                            ✕
-                        </button>
-                    </div>
-                </div>
-            )}
-        </>
+                    ✕
+                </button>
+            </div>
+        </div>
     );
 }
 
 export default function Conferences({ entries, title = 'Conferences' }: ConferencesProps) {
+    const [lightbox, setLightbox] = useState<{ src: string; name: string } | null>(null);
+
     return (
         <motion.section
             initial={{ opacity: 0, y: 20 }}
@@ -76,40 +52,91 @@ export default function Conferences({ entries, title = 'Conferences' }: Conferen
             transition={{ duration: 0.6, delay: 0.3 }}
         >
             <h2 className="text-2xl font-serif font-bold text-primary mb-4">{title}</h2>
+
             <div className="space-y-4">
                 {entries.map((entry, index) => (
-                    <div key={index} className="flex items-start gap-4">
-                        {/* Content */}
-                        <div className="flex-1 min-w-0">
-                            <div className="flex items-start justify-between gap-3">
-                                <div className="min-w-0">
-                                    <div className="flex items-center gap-2 flex-wrap">
-                                        <p className="font-semibold text-primary">{entry.name}</p>
-                                        <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium flex-shrink-0 ${
-                                            entry.type === 'Oral'
-                                                ? 'bg-accent/10 text-accent'
-                                                : 'bg-neutral-100 dark:bg-neutral-700 text-neutral-600 dark:text-neutral-300'
-                                        }`}>
-                                            {entry.type}
-                                        </span>
+                    <motion.div
+                        key={index}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.4, delay: 0.1 * index }}
+                        className="bg-white dark:bg-neutral-800 rounded-lg shadow-sm border border-neutral-200 dark:border-[rgba(148,163,184,0.24)] hover:shadow-lg transition-all duration-200 hover:scale-[1.02] overflow-hidden"
+                    >
+                        <div className="flex flex-col sm:flex-row">
+                            {/* Photo — first image, same style as publication preview */}
+                            {entry.photos && entry.photos.length > 0 && (
+                                <button
+                                    onClick={() => setLightbox({ src: entry.photos![0], name: entry.name })}
+                                    className="sm:w-60 sm:flex-shrink-0 w-full h-44 sm:h-auto relative focus:outline-none"
+                                >
+                                    <div className="w-full h-full rounded-l-lg overflow-hidden shadow-[4px_6px_18px_rgba(0,0,0,0.18)]">
+                                        <Image
+                                            src={entry.photos[0]}
+                                            alt={entry.name}
+                                            fill
+                                            className="object-cover bg-neutral-50 dark:bg-neutral-700"
+                                            sizes="(max-width: 640px) 100vw, 240px"
+                                        />
+                                    </div>
+                                </button>
+                            )}
+
+                            {/* Text content */}
+                            <div className="p-4 flex-1 flex flex-col justify-between">
+                                <div>
+                                    <div className="flex items-start justify-between gap-2 mb-1">
+                                        <div className="flex items-center gap-2 flex-wrap">
+                                            <h3 className="text-sm font-semibold text-primary leading-snug">
+                                                {entry.name}
+                                            </h3>
+                                            <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium flex-shrink-0 ${
+                                                entry.type === 'Oral'
+                                                    ? 'bg-accent/10 text-accent border border-accent/20'
+                                                    : 'bg-neutral-100 dark:bg-neutral-700 text-neutral-600 dark:text-neutral-300 border border-neutral-200 dark:border-neutral-600'
+                                            }`}>
+                                                {entry.type}
+                                            </span>
+                                        </div>
+                                        <p className="text-xs text-neutral-500 dark:text-neutral-400 italic whitespace-nowrap flex-shrink-0">
+                                            {entry.year}
+                                        </p>
                                     </div>
                                     {entry.full_name && (
-                                        <p className="text-sm text-neutral-500 dark:text-neutral-400 mt-0.5">{entry.full_name}</p>
+                                        <p className="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed">
+                                            {entry.full_name}
+                                        </p>
                                     )}
                                 </div>
-                                <div className="flex items-start gap-3 flex-shrink-0">
-                                    {entry.photos && entry.photos.length > 0 && (
-                                        <PhotoGallery photos={entry.photos} name={entry.name} />
-                                    )}
-                                    <p className="text-sm text-neutral-500 dark:text-neutral-400 italic whitespace-nowrap pt-1">
-                                        {entry.year}
-                                    </p>
-                                </div>
+
+                                {/* Extra photos as small thumbnails */}
+                                {entry.photos && entry.photos.length > 1 && (
+                                    <div className="flex gap-1.5 mt-3">
+                                        {entry.photos.slice(1).map((photo, i) => (
+                                            <button
+                                                key={i}
+                                                onClick={() => setLightbox({ src: photo, name: entry.name })}
+                                                className="w-12 h-12 rounded overflow-hidden border border-neutral-200 dark:border-neutral-700 hover:scale-105 transition-transform focus:outline-none flex-shrink-0"
+                                            >
+                                                <Image
+                                                    src={photo}
+                                                    alt={`${entry.name} photo ${i + 2}`}
+                                                    width={48}
+                                                    height={48}
+                                                    className="w-full h-full object-cover"
+                                                />
+                                            </button>
+                                        ))}
+                                    </div>
+                                )}
                             </div>
                         </div>
-                    </div>
+                    </motion.div>
                 ))}
             </div>
+
+            {lightbox && (
+                <Lightbox src={lightbox.src} name={lightbox.name} onClose={() => setLightbox(null)} />
+            )}
         </motion.section>
     );
 }
