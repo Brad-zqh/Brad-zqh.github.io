@@ -70,7 +70,7 @@ export default function Conferences({ entries, title = 'Conferences', compact = 
                             {!compact && entry.photos && entry.photos.length > 0 && (
                                 <button
                                     onClick={() => setLightbox({ src: entry.photos![0], name: entry.name })}
-                                    className="sm:w-60 sm:flex-shrink-0 w-full h-44 sm:h-auto relative focus:outline-none"
+                                    className="sm:w-52 sm:flex-shrink-0 w-full h-44 sm:h-44 relative focus:outline-none"
                                 >
                                     <div className="w-full h-full rounded-l-lg overflow-hidden shadow-[4px_6px_18px_rgba(0,0,0,0.18)]">
                                         <Image
