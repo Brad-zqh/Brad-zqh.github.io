@@ -30,6 +30,12 @@ filter = "selected"
 limit = 5
 
 [[sections]]
+id = "conferences"
+type = "conference"
+title = "🎤 Conferences"
+source = "conferences.toml"
+
+[[sections]]
 id = "news"
 type = "list"
 title = "🔥 News"

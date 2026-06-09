@@ -6,10 +6,11 @@ import { Publication } from '@/types/publication';
 import { BasePageConfig, PublicationPageConfig, TextPageConfig, CardPageConfig } from '@/types/page';
 import { getRuntimeI18nConfig } from '@/lib/i18n/config';
 import { EducationEntry } from '@/components/home/Education';
+import { ConferenceEntry } from '@/components/home/Conferences';
 
 interface SectionConfig {
   id: string;
-  type: 'markdown' | 'publications' | 'list' | 'education';
+  type: 'markdown' | 'publications' | 'list' | 'education' | 'conference';
   title?: string;
   source?: string;
   filter?: string;
@@ -18,6 +19,7 @@ interface SectionConfig {
   publications?: Publication[];
   items?: NewsItem[];
   educationEntries?: EducationEntry[];
+  conferenceEntries?: ConferenceEntry[];
 }
 
 interface NewsItem {
@@ -62,6 +64,13 @@ function processSections(sections: SectionConfig[], locale?: string): SectionCon
         return {
           ...section,
           educationEntries: eduData?.entries || [],
+        };
+      }
+      case 'conference': {
+        const confData = section.source ? getTomlContent<{ entries: ConferenceEntry[] }>(section.source, locale) : null;
+        return {
+          ...section,
+          conferenceEntries: confData?.entries || [],
         };
       }
       default:

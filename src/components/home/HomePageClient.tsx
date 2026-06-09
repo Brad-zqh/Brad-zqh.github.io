@@ -5,6 +5,7 @@ import About from '@/components/home/About';
 import SelectedPublications from '@/components/home/SelectedPublications';
 import News, { NewsItem } from '@/components/home/News';
 import Education, { EducationEntry } from '@/components/home/Education';
+import Conferences, { ConferenceEntry } from '@/components/home/Conferences';
 import VisitorMap from '@/components/home/VisitorMap';
 import PublicationsList from '@/components/publications/PublicationsList';
 import TextPage from '@/components/pages/TextPage';
@@ -16,7 +17,7 @@ import { useLocaleStore } from '@/lib/stores/localeStore';
 
 interface SectionConfig {
   id: string;
-  type: 'markdown' | 'publications' | 'list' | 'education';
+  type: 'markdown' | 'publications' | 'list' | 'education' | 'conference';
   title?: string;
   source?: string;
   filter?: string;
@@ -25,6 +26,7 @@ interface SectionConfig {
   publications?: Publication[];
   items?: NewsItem[];
   educationEntries?: EducationEntry[];
+  conferenceEntries?: ConferenceEntry[];
 }
 
 type PageData =
@@ -103,6 +105,14 @@ export default function HomePageClient({ dataByLocale, defaultLocale }: HomePage
                       <Education
                         key={section.id}
                         entries={section.educationEntries || []}
+                        title={section.title}
+                      />
+                    );
+                  case 'conference':
+                    return (
+                      <Conferences
+                        key={section.id}
+                        entries={section.conferenceEntries || []}
                         title={section.title}
                       />
                     );
