@@ -4,7 +4,7 @@ full_name = "International Conference on Planetary Actions for Sustainability"
 host = "University of Tokyo"
 type = "Poster"
 year = "Nov. 2025"
-photos = ["/conference/IPAS 2025.jpg"]
+photos = ["/conference/ipas-2025.jpg"]
 image_position = "top"
 
 [[entries]]
@@ -13,14 +13,14 @@ full_name = "Asia Pacific Council on Hotel, Restaurant and Institutional Educati
 host = "Chiang Mai University, Thailand"
 type = "Oral"
 year = "May 2025"
-photos = ["/conference/APacCHRIE 2025.jpg"]
+photos = ["/conference/apacchrie-2025.jpg"]
 
 [[entries]]
 name = "IMPACT 2025"
 host = "Hong Kong Polytechnic University"
 type = "Oral"
 year = "Nov. 2024"
-photos = ["/conference/IMPACT 2025.jpg"]
+photos = ["/conference/impact-2025.jpg"]
 
 [[entries]]
 name = "National Tourism Geography Annual Conference (全国旅游地理学年会)"
@@ -28,7 +28,7 @@ full_name = "2024 National Tourism Geography Annual Conference"
 host = "Guangzhou, China"
 type = "Oral"
 year = "Aug. 2024"
-photos = ["/conference/2024年全国旅游地理学年会.jpg"]
+photos = ["/conference/tourism-geo-2024.jpg"]
 
 [[entries]]
 name = "National Human Geography Conference (全国人文地理学大会)"
@@ -36,7 +36,7 @@ full_name = "2023 National Human Geography Conference"
 host = "Shaanxi Normal University"
 type = "Oral"
 year = "Aug. 2023"
-photos = ["/conference/2023全国人文地理学大会.jpg"]
+photos = ["/conference/human-geo-2023.jpg"]
 
 [[entries]]
 name = "Zhejiang Geographical Society Annual Conference (浙江省地理学会学术年会)"
@@ -44,4 +44,4 @@ full_name = "2022 Annual Academic Conference of Zhejiang Geographical Society"
 host = "Zhejiang University"
 type = "Oral"
 year = "Oct. 2022"
-photos = ["/conference/浙江省地理学会2022年学术年会.jpg"]
+photos = ["/conference/zhejiang-geo-2022.jpg"]
