@@ -75,9 +75,11 @@ export default function SelectedPublications({ publications, title, enableOnePag
                                         </span>
                                     ))}
                                 </p>
-                                <p className="text-xs font-semibold italic text-neutral-700 dark:text-neutral-400 mb-2">
-                                    {pub.journal || pub.conference}
-                                </p>
+                                {pub.status !== 'under-review' && (
+                                    <p className="text-xs font-semibold italic text-neutral-700 dark:text-neutral-400 mb-2">
+                                        {pub.journal || pub.conference}
+                                    </p>
+                                )}
                                 {pub.description && (
                                     <div className="flex flex-wrap gap-1 mt-1">
                                         {pub.description.split('·').map((tag, i) => (
