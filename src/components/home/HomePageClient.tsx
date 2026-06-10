@@ -77,7 +77,7 @@ export default function HomePageClient({ dataByLocale, defaultLocale }: HomePage
                 <p style={{
                   fontFamily: "'Playfair Display', Georgia, serif",
                   fontStyle: 'italic',
-                  fontWeight: 400,
+                  fontWeight: 700,
                   fontSize: '1.35rem',
                   lineHeight: '1.8',
                   color: 'var(--accent)',
