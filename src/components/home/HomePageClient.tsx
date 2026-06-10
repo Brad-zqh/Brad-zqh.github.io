@@ -73,6 +73,20 @@ export default function HomePageClient({ dataByLocale, defaultLocale }: HomePage
         <div className="lg:col-span-2 space-y-12">
           {data.pagesToShow.map((page) => (
             <section key={page.id} id={page.id} className="scroll-mt-24 space-y-12">
+              {page.type === 'about' && (
+                <p style={{
+                  fontFamily: "'Playfair Display', Georgia, serif",
+                  fontStyle: 'italic',
+                  fontWeight: 400,
+                  fontSize: '1.35rem',
+                  lineHeight: '1.8',
+                  color: 'var(--accent)',
+                  opacity: 0.8,
+                  letterSpacing: '0.01em',
+                }}>
+                  &ldquo;The only way to do great work is to love what you do.&rdquo;
+                </p>
+              )}
 {page.type === 'about' && page.sections.map((section: SectionConfig) => {
                 switch (section.type) {
                   case 'markdown':
