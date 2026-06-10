@@ -87,6 +87,20 @@ export default function HomePageClient({ dataByLocale, defaultLocale }: HomePage
                   &ldquo;The only way to do great work is to love what you do.&rdquo;
                 </p>
               )}
+              {page.type === 'about' && (
+                <p style={{
+                  fontFamily: "'Playfair Display', Georgia, serif",
+                  fontStyle: 'italic',
+                  fontWeight: 700,
+                  fontSize: '1.1rem',
+                  color: 'var(--accent)',
+                  opacity: 0.8,
+                  textAlign: 'right',
+                  marginTop: '-2rem',
+                }}>
+                  &mdash; Steve Jobs
+                </p>
+              )}
 {page.type === 'about' && page.sections.map((section: SectionConfig) => {
                 switch (section.type) {
                   case 'markdown':
