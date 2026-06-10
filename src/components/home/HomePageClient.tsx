@@ -74,7 +74,7 @@ export default function HomePageClient({ dataByLocale, defaultLocale }: HomePage
           {data.pagesToShow.map((page) => (
             <section key={page.id} id={page.id} className="scroll-mt-24 space-y-12">
               {page.type === 'about' && (
-                <div style={{ display: 'table', marginBottom: '-1.5rem' }}>
+                <div style={{ display: 'table' }}>
                   <p style={{
                     fontFamily: "'Playfair Display', Georgia, serif",
                     fontStyle: 'italic',
