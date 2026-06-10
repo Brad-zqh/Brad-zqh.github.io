@@ -173,6 +173,45 @@ export default function RootLayout({
             __html: buildLocaleBootstrapScript(runtimeI18n),
           }}
         />
+        {/* Structured data: Person schema for Google */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Person",
+              "name": "Qiuhao Zhao",
+              "alternateName": "Brad Zhao",
+              "url": "https://brad-zqh.github.io",
+              "image": "https://brad-zqh.github.io/bio.jpg",
+              "jobTitle": "PhD Candidate",
+              "affiliation": {
+                "@type": "Organization",
+                "name": "Zhejiang University",
+                "department": "School of Earth Sciences"
+              },
+              "alumniOf": {
+                "@type": "Organization",
+                "name": "Zhejiang University"
+              },
+              "email": "zhaoqiuhao@zju.edu.cn",
+              "sameAs": [
+                "https://scholar.google.com/citations?user=QdY3Ns4AAAAJ",
+                "https://orcid.org/0000-0003-3667-4675",
+                "https://github.com/Brad-zqh",
+                "https://www.researchgate.net/profile/Qiuhao-Zhao-2",
+                "https://www.linkedin.com/in/qiuhao-zhao-818989325/"
+              ],
+              "knowsAbout": [
+                "Spatiotemporal Big Data",
+                "Tourism Geography",
+                "GIS",
+                "Machine Learning",
+                "Urban Geography"
+              ]
+            })
+          }}
+        />
       </head>
       <body className="font-sans antialiased">
         <ThemeProvider>
