@@ -74,32 +74,32 @@ export default function HomePageClient({ dataByLocale, defaultLocale }: HomePage
           {data.pagesToShow.map((page) => (
             <section key={page.id} id={page.id} className="scroll-mt-24 space-y-12">
               {page.type === 'about' && (
-                <p style={{
-                  fontFamily: "'Playfair Display', Georgia, serif",
-                  fontStyle: 'italic',
-                  fontWeight: 700,
-                  fontSize: '1.35rem',
-                  lineHeight: '1.8',
-                  color: 'var(--accent)',
-                  opacity: 0.8,
-                  letterSpacing: '0.01em',
-                }}>
-                  &ldquo;The only way to do great work is to love what you do.&rdquo;
-                </p>
-              )}
-              {page.type === 'about' && (
-                <p style={{
-                  fontFamily: "'Playfair Display', Georgia, serif",
-                  fontStyle: 'italic',
-                  fontWeight: 700,
-                  fontSize: '1.1rem',
-                  color: 'var(--accent)',
-                  opacity: 0.8,
-                  textAlign: 'right',
-                  marginTop: '-2rem',
-                }}>
-                  &mdash; Steve Jobs
-                </p>
+                <div style={{ display: 'table', marginBottom: '-1.5rem' }}>
+                  <p style={{
+                    fontFamily: "'Playfair Display', Georgia, serif",
+                    fontStyle: 'italic',
+                    fontWeight: 700,
+                    fontSize: '1.35rem',
+                    lineHeight: '1.8',
+                    color: 'var(--accent)',
+                    opacity: 0.8,
+                    letterSpacing: '0.01em',
+                  }}>
+                    &ldquo;The only way to do great work is to love what you do.&rdquo;
+                  </p>
+                  <p style={{
+                    fontFamily: "'Playfair Display', Georgia, serif",
+                    fontStyle: 'italic',
+                    fontWeight: 700,
+                    fontSize: '1.35rem',
+                    lineHeight: '1.4',
+                    color: 'var(--accent)',
+                    opacity: 0.8,
+                    textAlign: 'right',
+                  }}>
+                    &mdash; Steve Jobs
+                  </p>
+                </div>
               )}
 {page.type === 'about' && page.sections.map((section: SectionConfig) => {
                 switch (section.type) {
