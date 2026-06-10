@@ -32,7 +32,6 @@ export default function PublicationsList({ config, publications, embedded = fals
     const [expandedBibtexId, setExpandedBibtexId] = useState<string | null>(null);
     const [expandedAbstractId, setExpandedAbstractId] = useState<string | null>(null);
 
-    // Extract unique years and types for filters
     const years = useMemo(() => {
         const uniqueYears = Array.from(new Set(publications.map(p => p.year)));
         return uniqueYears.sort((a, b) => b - a);
@@ -43,7 +42,6 @@ export default function PublicationsList({ config, publications, embedded = fals
         return uniqueTypes.sort();
     }, [publications]);
 
-    // Filter publications
     const filteredPublications = useMemo(() => {
         return publications.filter(pub => {
             const matchesSearch =
@@ -51,13 +49,171 @@ export default function PublicationsList({ config, publications, embedded = fals
                 pub.authors.some(author => author.name.toLowerCase().includes(searchQuery.toLowerCase())) ||
                 pub.journal?.toLowerCase().includes(searchQuery.toLowerCase()) ||
                 pub.conference?.toLowerCase().includes(searchQuery.toLowerCase());
-
             const matchesYear = selectedYear === 'all' || pub.year === selectedYear;
             const matchesType = selectedType === 'all' || pub.type === selectedType;
-
             return matchesSearch && matchesYear && matchesType;
         });
     }, [publications, searchQuery, selectedYear, selectedType]);
+
+    const renderCard = (pub: Publication, index: number) => (
+        <motion.div
+            key={pub.id}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: 0.05 * index }}
+            className="bg-white dark:bg-neutral-900 p-6 rounded-xl shadow-sm border border-neutral-200 dark:border-neutral-800 hover:shadow-md transition-all duration-200"
+        >
+            <div className="flex flex-col md:flex-row gap-6">
+                {pub.preview && (
+                    <div className="w-full md:w-72 flex-shrink-0">
+                        <div className="aspect-video md:aspect-[4/3] relative rounded-lg overflow-hidden shadow-[4px_6px_18px_rgba(0,0,0,0.18)] bg-neutral-50 dark:bg-neutral-800">
+                            <Image
+                                src={`/papers/${pub.preview}`}
+                                alt={pub.title}
+                                fill
+                                className="object-cover"
+                                sizes="(max-width: 768px) 100vw, 288px"
+                            />
+                        </div>
+                    </div>
+                )}
+                <div className="flex-grow">
+                    <h3 className={`${embedded ? "text-lg" : "text-xl"} font-semibold text-primary mb-2 leading-tight`}>
+                        <FormattedBibTeXText nodes={pub.titleNodes} fallback={pub.title} />
+                    </h3>
+                    <p className={`${embedded ? "text-sm" : "text-base"} text-neutral-600 dark:text-neutral-400 mb-2`}>
+                        {pub.authors.map((author, idx) => (
+                            <span key={idx}>
+                                <span className={`${author.isHighlighted ? 'font-bold' : ''} ${author.isCoAuthor ? 'underline underline-offset-4 decoration-neutral-400' : ''}`}>
+                                    {author.name}
+                                </span>
+                                {author.isCorresponding && (
+                                    <sup className={`ml-0 ${author.isHighlighted ? 'text-accent' : 'text-neutral-600 dark:text-neutral-400'}`}>†</sup>
+                                )}
+                                {idx < pub.authors.length - 1 && ', '}
+                            </span>
+                        ))}
+                    </p>
+                    {pub.status !== 'under-review' && (
+                        <p className="text-sm font-semibold italic text-neutral-800 dark:text-neutral-600 mb-1">
+                            {pub.journal || pub.conference} {pub.year}
+                        </p>
+                    )}
+                    {pub.status === 'under-review' && (
+                        <p className="text-sm text-accent mb-2 font-medium">Under Review</p>
+                    )}
+                    {pub.description && pub.status !== 'under-review' && (
+                        <div className="flex flex-wrap gap-1 mb-3">
+                            {pub.description.split('·').map((tag, i) => (
+                                <span key={i} className="inline-block px-2 py-0.5 rounded text-xs font-medium bg-accent/10 text-accent border border-accent/20">
+                                    {tag.trim()}
+                                </span>
+                            ))}
+                        </div>
+                    )}
+                    <div className="flex flex-wrap gap-2 mt-2">
+                        {pub.doi && (
+                            <a
+                                href={`https://doi.org/${pub.doi}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center px-3 py-1 rounded-md text-xs font-medium bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 hover:bg-accent hover:text-white transition-colors"
+                            >
+                                DOI
+                            </a>
+                        )}
+                        {pub.code && (
+                            <a
+                                href={pub.code}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center px-3 py-1 rounded-md text-xs font-medium bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 hover:bg-accent hover:text-white transition-colors"
+                            >
+                                {messages.publications.code}
+                            </a>
+                        )}
+                        {pub.abstract && (
+                            <button
+                                onClick={() => setExpandedAbstractId(expandedAbstractId === pub.id ? null : pub.id)}
+                                className={cn(
+                                    "inline-flex items-center px-3 py-1 rounded-md text-xs font-medium transition-colors",
+                                    expandedAbstractId === pub.id
+                                        ? "bg-accent text-white"
+                                        : "bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 hover:bg-accent hover:text-white"
+                                )}
+                            >
+                                <DocumentTextIcon className="h-3 w-3 mr-1.5" />
+                                {messages.publications.abstract}
+                            </button>
+                        )}
+                        {pub.bibtex && (
+                            <button
+                                onClick={() => setExpandedBibtexId(expandedBibtexId === pub.id ? null : pub.id)}
+                                className={cn(
+                                    "inline-flex items-center px-3 py-1 rounded-md text-xs font-medium transition-colors",
+                                    expandedBibtexId === pub.id
+                                        ? "bg-accent text-white"
+                                        : "bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 hover:bg-accent hover:text-white"
+                                )}
+                            >
+                                <BookOpenIcon className="h-3 w-3 mr-1.5" />
+                                {messages.publications.bibtex}
+                            </button>
+                        )}
+                    </div>
+
+                    <AnimatePresence>
+                        {expandedAbstractId === pub.id && pub.abstract && (
+                            <motion.div
+                                key="abstract"
+                                initial={{ opacity: 0, height: 0 }}
+                                animate={{ opacity: 1, height: 'auto' }}
+                                exit={{ opacity: 0, height: 0 }}
+                                className="overflow-hidden mt-4"
+                            >
+                                <div className="bg-neutral-50 dark:bg-neutral-800 rounded-lg p-4 border border-neutral-200 dark:border-neutral-700">
+                                    <p className="text-sm text-neutral-600 dark:text-neutral-500 leading-relaxed">
+                                        {pub.abstract}
+                                    </p>
+                                </div>
+                            </motion.div>
+                        )}
+                        {expandedBibtexId === pub.id && pub.bibtex && (
+                            <motion.div
+                                key="bibtex"
+                                initial={{ opacity: 0, height: 0 }}
+                                animate={{ opacity: 1, height: 'auto' }}
+                                exit={{ opacity: 0, height: 0 }}
+                                className="overflow-hidden mt-4"
+                            >
+                                <div className="relative bg-neutral-50 dark:bg-neutral-800 rounded-lg p-4 border border-neutral-200 dark:border-neutral-700">
+                                    <pre className="text-xs text-neutral-600 dark:text-neutral-500 overflow-x-auto whitespace-pre-wrap font-mono">
+                                        {pub.bibtex}
+                                    </pre>
+                                    <button
+                                        onClick={() => navigator.clipboard.writeText(pub.bibtex || '')}
+                                        className="absolute top-2 right-2 p-1.5 rounded-md bg-white dark:bg-neutral-700 text-neutral-500 hover:text-accent shadow-sm border border-neutral-200 dark:border-neutral-600 transition-colors"
+                                        title={messages.common.copyToClipboard}
+                                    >
+                                        <ClipboardDocumentIcon className="h-4 w-4" />
+                                    </button>
+                                </div>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+                </div>
+            </div>
+        </motion.div>
+    );
+
+    // Split into working papers and published, grouped by year
+    const workingPapers = filteredPublications.filter(p => p.status === 'under-review');
+    const published = filteredPublications.filter(p => p.status !== 'under-review');
+    const byYear = published.reduce<Record<number, Publication[]>>((acc, p) => {
+        (acc[p.year] = acc[p.year] || []).push(p);
+        return acc;
+    }, {});
+    const sortedYears = Object.keys(byYear).map(Number).sort((a, b) => b - a);
 
     return (
         <motion.div
@@ -76,7 +232,6 @@ export default function PublicationsList({ config, publications, embedded = fals
 
             {/* Search and Filter Controls */}
             <div className="mb-8 space-y-4">
-                {/* ... (keep existing controls) ... */}
                 <div className="flex flex-col sm:flex-row gap-4">
                     <div className="relative flex-grow">
                         <MagnifyingGlassIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-neutral-400" />
@@ -111,7 +266,6 @@ export default function PublicationsList({ config, publications, embedded = fals
                             className="overflow-hidden"
                         >
                             <div className="p-4 bg-neutral-50 dark:bg-neutral-800/50 rounded-lg border border-neutral-200 dark:border-neutral-800 flex flex-wrap gap-6">
-                                {/* Year Filter */}
                                 <div className="space-y-2">
                                     <label className="text-sm font-medium text-neutral-700 dark:text-neutral-300 flex items-center">
                                         <CalendarIcon className="h-4 w-4 mr-1" /> {messages.publications.year}
@@ -119,33 +273,17 @@ export default function PublicationsList({ config, publications, embedded = fals
                                     <div className="flex flex-wrap gap-2">
                                         <button
                                             onClick={() => setSelectedYear('all')}
-                                            className={cn(
-                                                "px-3 py-1 text-xs rounded-full transition-colors",
-                                                selectedYear === 'all'
-                                                    ? "bg-accent text-white"
-                                                    : "bg-white dark:bg-neutral-800 text-neutral-600 hover:bg-neutral-100 dark:hover:bg-neutral-700"
-                                            )}
-                                        >
-                                            {messages.common.all}
-                                        </button>
+                                            className={cn("px-3 py-1 text-xs rounded-full transition-colors",
+                                                selectedYear === 'all' ? "bg-accent text-white" : "bg-white dark:bg-neutral-800 text-neutral-600 hover:bg-neutral-100 dark:hover:bg-neutral-700")}
+                                        >{messages.common.all}</button>
                                         {years.map(year => (
-                                            <button
-                                                key={year}
-                                                onClick={() => setSelectedYear(year)}
-                                                className={cn(
-                                                    "px-3 py-1 text-xs rounded-full transition-colors",
-                                                    selectedYear === year
-                                                        ? "bg-accent text-white"
-                                                        : "bg-white dark:bg-neutral-800 text-neutral-600 hover:bg-neutral-100 dark:hover:bg-neutral-700"
-                                                )}
-                                            >
-                                                {year}
-                                            </button>
+                                            <button key={year} onClick={() => setSelectedYear(year)}
+                                                className={cn("px-3 py-1 text-xs rounded-full transition-colors",
+                                                    selectedYear === year ? "bg-accent text-white" : "bg-white dark:bg-neutral-800 text-neutral-600 hover:bg-neutral-100 dark:hover:bg-neutral-700")}
+                                            >{year}</button>
                                         ))}
                                     </div>
                                 </div>
-
-                                {/* Type Filter */}
                                 <div className="space-y-2">
                                     <label className="text-sm font-medium text-neutral-700 dark:text-neutral-300 flex items-center">
                                         <BookOpenIcon className="h-4 w-4 mr-1" /> {messages.publications.type}
@@ -153,28 +291,14 @@ export default function PublicationsList({ config, publications, embedded = fals
                                     <div className="flex flex-wrap gap-2">
                                         <button
                                             onClick={() => setSelectedType('all')}
-                                            className={cn(
-                                                "px-3 py-1 text-xs rounded-full transition-colors",
-                                                selectedType === 'all'
-                                                    ? "bg-accent text-white"
-                                                    : "bg-white dark:bg-neutral-800 text-neutral-600 hover:bg-neutral-100 dark:hover:bg-neutral-700"
-                                            )}
-                                        >
-                                            {messages.common.all}
-                                        </button>
+                                            className={cn("px-3 py-1 text-xs rounded-full transition-colors",
+                                                selectedType === 'all' ? "bg-accent text-white" : "bg-white dark:bg-neutral-800 text-neutral-600 hover:bg-neutral-100 dark:hover:bg-neutral-700")}
+                                        >{messages.common.all}</button>
                                         {types.map(type => (
-                                            <button
-                                                key={type}
-                                                onClick={() => setSelectedType(type)}
-                                                className={cn(
-                                                    "px-3 py-1 text-xs rounded-full capitalize transition-colors",
-                                                    selectedType === type
-                                                        ? "bg-accent text-white"
-                                                        : "bg-white dark:bg-neutral-800 text-neutral-600 hover:bg-neutral-100 dark:hover:bg-neutral-700"
-                                                )}
-                                            >
-                                                {type.replace('-', ' ')}
-                                            </button>
+                                            <button key={type} onClick={() => setSelectedType(type)}
+                                                className={cn("px-3 py-1 text-xs rounded-full capitalize transition-colors",
+                                                    selectedType === type ? "bg-accent text-white" : "bg-white dark:bg-neutral-800 text-neutral-600 hover:bg-neutral-100 dark:hover:bg-neutral-700")}
+                                            >{type.replace('-', ' ')}</button>
                                         ))}
                                     </div>
                                 </div>
@@ -184,171 +308,36 @@ export default function PublicationsList({ config, publications, embedded = fals
                 </AnimatePresence>
             </div>
 
-            {/* Publications Grid */}
-            <div className="space-y-6">
-                {filteredPublications.length === 0 ? (
-                    <div className="text-center py-12 text-neutral-500">
-                        {messages.publications.noResults}
-                    </div>
-                ) : (
-                    filteredPublications.map((pub, index) => (
-                        <motion.div
-                            key={pub.id}
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.4, delay: 0.1 * index }}
-                            className="bg-white dark:bg-neutral-900 p-6 rounded-xl shadow-sm border border-neutral-200 dark:border-neutral-800 hover:shadow-md transition-all duration-200"
-                        >
-                            <div className="flex flex-col md:flex-row gap-6">
-                                {pub.preview && (
-                                    <div className="w-full md:w-72 flex-shrink-0">
-                                        <div className="aspect-video md:aspect-[4/3] relative rounded-lg overflow-hidden shadow-[4px_6px_18px_rgba(0,0,0,0.18)] bg-neutral-50 dark:bg-neutral-800">
-                                            <Image
-                                                src={`/papers/${pub.preview}`}
-                                                alt={pub.title}
-                                                fill
-                                                className="object-cover"
-                                                sizes="(max-width: 768px) 100vw, 288px"
-                                            />
-                                        </div>
-                                    </div>
-                                )}
-                                <div className="flex-grow">
-                                    <h3 className={`${embedded ? "text-lg" : "text-xl"} font-semibold text-primary mb-2 leading-tight`}>
-                                        <FormattedBibTeXText nodes={pub.titleNodes} fallback={pub.title} />
-                                    </h3>
-                                    <p className={`${embedded ? "text-sm" : "text-base"} text-neutral-600 dark:text-neutral-400 mb-2`}>
-                                        {pub.authors.map((author, idx) => (
-                                            <span key={idx}>
-                                                <span className={`${author.isHighlighted ? 'font-bold' : ''} ${author.isCoAuthor ? 'underline underline-offset-4 decoration-neutral-400' : ''}`}>
-                                                    {author.name}
-                                                </span>
-                                                {author.isCorresponding && (
-                                                    <sup className={`ml-0 ${author.isHighlighted ? 'text-accent' : 'text-neutral-600 dark:text-neutral-400'}`}>†</sup>
-                                                )}
-                                                {idx < pub.authors.length - 1 && ', '}
-                                            </span>
-                                        ))}
-                                    </p>
-                                    {pub.status !== 'under-review' && (
-                                        <p className="text-sm font-semibold italic text-neutral-800 dark:text-neutral-600 mb-1">
-                                            {pub.journal || pub.conference} {pub.year}
-                                        </p>
-                                    )}
-
-                                    {pub.status === 'under-review' && (
-                                        <p className="text-sm text-accent mb-2 font-medium">Under Review</p>
-                                    )}
-
-                                    {pub.description && pub.status !== 'under-review' && (
-                                        <div className="flex flex-wrap gap-1 mb-3">
-                                            {pub.description.split('·').map((tag, i) => (
-                                                <span key={i} className="inline-block px-2 py-0.5 rounded text-xs font-medium bg-accent/10 text-accent border border-accent/20">
-                                                    {tag.trim()}
-                                                </span>
-                                            ))}
-                                        </div>
-                                    )}
-
-                                    <div className="flex flex-wrap gap-2 mt-auto">
-                                        {pub.doi && (
-                                            <a
-                                                href={`https://doi.org/${pub.doi}`}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className="inline-flex items-center px-3 py-1 rounded-md text-xs font-medium bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 hover:bg-accent hover:text-white transition-colors"
-                                            >
-                                                DOI
-                                            </a>
-                                        )}
-                                        {pub.code && (
-                                            <a
-                                                href={pub.code}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className="inline-flex items-center px-3 py-1 rounded-md text-xs font-medium bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 hover:bg-accent hover:text-white transition-colors"
-                                            >
-                                                {messages.publications.code}
-                                            </a>
-                                        )}
-                                        {pub.abstract && (
-                                            <button
-                                                onClick={() => setExpandedAbstractId(expandedAbstractId === pub.id ? null : pub.id)}
-                                                className={cn(
-                                                    "inline-flex items-center px-3 py-1 rounded-md text-xs font-medium transition-colors",
-                                                    expandedAbstractId === pub.id
-                                                        ? "bg-accent text-white"
-                                                        : "bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 hover:bg-accent hover:text-white"
-                                                )}
-                                            >
-                                                <DocumentTextIcon className="h-3 w-3 mr-1.5" />
-                                                {messages.publications.abstract}
-                                            </button>
-                                        )}
-                                        {pub.bibtex && (
-                                            <button
-                                                onClick={() => setExpandedBibtexId(expandedBibtexId === pub.id ? null : pub.id)}
-                                                className={cn(
-                                                    "inline-flex items-center px-3 py-1 rounded-md text-xs font-medium transition-colors",
-                                                    expandedBibtexId === pub.id
-                                                        ? "bg-accent text-white"
-                                                        : "bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 hover:bg-accent hover:text-white"
-                                                )}
-                                            >
-                                                <BookOpenIcon className="h-3 w-3 mr-1.5" />
-                                                {messages.publications.bibtex}
-                                            </button>
-                                        )}
-                                    </div>
-
-                                    <AnimatePresence>
-                                        {expandedAbstractId === pub.id && pub.abstract ? (
-                                            <motion.div
-                                                key="abstract"
-                                                initial={{ opacity: 0, height: 0 }}
-                                                animate={{ opacity: 1, height: 'auto' }}
-                                                exit={{ opacity: 0, height: 0 }}
-                                                className="overflow-hidden mt-4"
-                                            >
-                                                <div className="bg-neutral-50 dark:bg-neutral-800 rounded-lg p-4 border border-neutral-200 dark:border-neutral-700">
-                                                    <p className="text-sm text-neutral-600 dark:text-neutral-500 leading-relaxed">
-                                                        {pub.abstract}
-                                                    </p>
-                                                </div>
-                                            </motion.div>
-                                        ) : null}
-                                        {expandedBibtexId === pub.id && pub.bibtex ? (
-                                            <motion.div
-                                                key="bibtex"
-                                                initial={{ opacity: 0, height: 0 }}
-                                                animate={{ opacity: 1, height: 'auto' }}
-                                                exit={{ opacity: 0, height: 0 }}
-                                                className="overflow-hidden mt-4"
-                                            >
-                                                <div className="relative bg-neutral-50 dark:bg-neutral-800 rounded-lg p-4 border border-neutral-200 dark:border-neutral-700">
-                                                    <pre className="text-xs text-neutral-600 dark:text-neutral-500 overflow-x-auto whitespace-pre-wrap font-mono">
-                                                        {pub.bibtex}
-                                                    </pre>
-                                                    <button
-                                                        onClick={() => {
-                                                            navigator.clipboard.writeText(pub.bibtex || '');
-                                                            // Optional: Show copied feedback
-                                                        }}
-                                                        className="absolute top-2 right-2 p-1.5 rounded-md bg-white dark:bg-neutral-700 text-neutral-500 hover:text-accent shadow-sm border border-neutral-200 dark:border-neutral-600 transition-colors"
-                                                        title={messages.common.copyToClipboard}
-                                                    >
-                                                        <ClipboardDocumentIcon className="h-4 w-4" />
-                                                    </button>
-                                                </div>
-                                            </motion.div>
-                                        ) : null}
-                                    </AnimatePresence>
-                                </div>
+            {/* Publications grouped */}
+            {filteredPublications.length === 0 ? (
+                <div className="text-center py-12 text-neutral-500">
+                    {messages.publications.noResults}
+                </div>
+            ) : (
+                <div className="space-y-12">
+                    {/* Working Papers */}
+                    {workingPapers.length > 0 && (
+                        <div>
+                            <h2 className="text-2xl font-bold text-accent mb-1">Working Papers</h2>
+                            <hr className="border-neutral-200 dark:border-neutral-700 mb-6" />
+                            <div className="space-y-6">
+                                {workingPapers.map((pub, i) => renderCard(pub, i))}
                             </div>
-                        </motion.div>
-                    ))
-                )}
-            </div>
+                        </div>
+                    )}
+
+                    {/* Published papers by year */}
+                    {sortedYears.map(year => (
+                        <div key={year}>
+                            <h2 className="text-2xl font-bold text-accent mb-1">{year}</h2>
+                            <hr className="border-neutral-200 dark:border-neutral-700 mb-6" />
+                            <div className="space-y-6">
+                                {byYear[year].map((pub, i) => renderCard(pub, i))}
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            )}
         </motion.div>
     );
 }
