@@ -138,7 +138,7 @@ export default function RootLayout({
         {/* Lato font for friendly yet professional body text */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;700&family=Playfair+Display:ital@1&display=swap" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,400&family=Playfair+Display:ital@1&display=swap" />
         <link rel="dns-prefetch" href="https://jialeliu.com" />
         <link rel="preconnect" href="https://jialeliu.com" crossOrigin="" />
         <link
