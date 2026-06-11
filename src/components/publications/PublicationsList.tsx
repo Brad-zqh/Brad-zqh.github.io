@@ -99,7 +99,7 @@ export default function PublicationsList({ config, publications, embedded = fals
                             {pub.journal || pub.conference} {pub.year}
                         </p>
                     )}
-                    {pub.status === 'under-review' && (
+                    {pub.status === 'under-review' && (pub.journal || pub.conference) && (
                         <p className="text-sm text-accent mb-2 font-medium">Under Review</p>
                     )}
                     {pub.description && pub.status !== 'under-review' && (
