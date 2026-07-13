@@ -6,34 +6,40 @@ description = "期刊审稿及学术服务记录。"
 title = "Journal of Retailing and Consumer Services"
 subtitle = "审稿人"
 date = "2023至今"
-content = "3次审稿 · SSCI JCR Q1"
+content = "3次审稿 · IF 13.7 · ABS 2 · SSCI JCR Q1 · 中科院管理学1区 TOP"
 
 [[items]]
 title = "Annals of Tourism Research"
 subtitle = "审稿人"
 date = "2023至今"
-content = "2次审稿 · SSCI JCR Q1"
+content = "2次审稿 · IF 8.1 · ABS 4 · SSCI JCR Q1 · 中科院管理学1区 TOP"
 
 [[items]]
 title = "Tourism Management"
 subtitle = "审稿人"
 date = "2023至今"
-content = "2次审稿 · SSCI JCR Q1"
+content = "2次审稿 · IF 14.5 · ABS 4 · SSCI JCR Q1 · 中科院管理学1区 TOP"
 
 [[items]]
 title = "Ecological Indicators"
 subtitle = "审稿人"
 date = "2023至今"
-content = "1次审稿 · SCI JCR Q1"
+content = "1次审稿 · IF 8.7 · SCI JCR Q1 · 中科院环境科学与生态学1区 TOP"
 
 [[items]]
 title = "Tourism Management Perspectives"
 subtitle = "审稿人"
 date = "2023至今"
-content = "1次审稿 · SSCI JCR Q1"
+content = "1次审稿 · IF 8.3 · ABS 2 · SSCI JCR Q1 · 中科院管理学2区"
 
 [[items]]
 title = "International Journal of Hospitality Management"
 subtitle = "审稿人"
 date = "2023至今"
-content = "1次审稿 · SSCI JCR Q1"
+content = "1次审稿 · IF 8.3 · ABS 3 · SSCI JCR Q1 · 中科院管理学1区 TOP"
+
+[[items]]
+title = "Scientific Reports"
+subtitle = "审稿人"
+date = "2023至今"
+content = "2次审稿 · IF 4.9 · SCI JCR Q1 · 中科院综合性期刊3区"
