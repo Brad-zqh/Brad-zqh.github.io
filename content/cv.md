@@ -21,9 +21,9 @@
 
 ### First-Author (Under Review)
 
-- **Zhao, Q.**, Xu, P., & Jin, P. (2026). Social inequalities in sustainable dining access across Hong Kong: A spatiotemporal analysis using multimodal data and large language models. *Environmental Science & Technology*. *(Nature Index, SCI JCR Q1, IF=12.2, IF-5=13.1)*
+- **Zhao, Q.**, Xu, P., & Jin, P. (2026). Social inequalities in sustainable dining access across Hong Kong: A spatiotemporal analysis using multimodal data and large language models. *(Under review)*
 
-- **Zhao, Q.**, Xu, P., & Jin, P. (2026). Seen or felt? How objective and perceived streetscape cues shape home-sharing performance. *Applied Geography*. *(SSCI JCR Q1, IF=7.4, IF-5=6.8)*
+- **Zhao, Q.**, Xu, P., & Jin, P. (2026). Seen or felt? How objective and perceived streetscape cues shape home-sharing performance. *(Under review)*
 
 ### Co-Author
 

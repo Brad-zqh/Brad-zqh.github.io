@@ -99,7 +99,7 @@ export default function PublicationsList({ config, publications, embedded = fals
                             {pub.journal || pub.conference} {pub.year}
                         </p>
                     )}
-                    {pub.status === 'under-review' && (pub.journal || pub.conference) && (
+                    {pub.status === 'under-review' && (
                         <p className="text-sm text-accent mb-2 font-medium">Under Review</p>
                     )}
                     {pub.description && pub.status !== 'under-review' && (
@@ -146,7 +146,7 @@ export default function PublicationsList({ config, publications, embedded = fals
                                 {messages.publications.abstract}
                             </button>
                         )}
-                        {pub.bibtex && (
+                        {pub.bibtex && pub.status !== 'under-review' && (
                             <button
                                 onClick={() => setExpandedBibtexId(expandedBibtexId === pub.id ? null : pub.id)}
                                 className={cn(
@@ -178,7 +178,7 @@ export default function PublicationsList({ config, publications, embedded = fals
                                 </div>
                             </motion.div>
                         )}
-                        {expandedBibtexId === pub.id && pub.bibtex && (
+                        {expandedBibtexId === pub.id && pub.bibtex && pub.status !== 'under-review' && (
                             <motion.div
                                 key="bibtex"
                                 initial={{ opacity: 0, height: 0 }}

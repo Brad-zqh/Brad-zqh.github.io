@@ -59,6 +59,9 @@ export function parseBibTeX(bibtexContent: string, locale?: string): Publication
 
     // Parse selected field (convert string to boolean)
     const selected = tags.selected === 'true' || tags.selected === 'yes';
+    const status = (tags.note?.toLowerCase().includes('under review') || tags.note?.toLowerCase().includes('under-review'))
+      ? 'under-review' as const
+      : 'published' as const;
 
     // Parse preview field (remove braces if present)
     const preview = tags.preview?.replace(/[{}]/g, '');
@@ -73,9 +76,7 @@ export function parseBibTeX(bibtexContent: string, locale?: string): Publication
       year,
       month: monthMapping[tags.month?.toLowerCase()] ? String(month) : tags.month,
       type,
-      status: (tags.note?.toLowerCase().includes('under review') || tags.note?.toLowerCase().includes('under-review'))
-        ? 'under-review' as const
-        : 'published' as const,
+      status,
       tags: keywords,
       keywords,
       researchArea: detectResearchArea(tags.title, keywords),
@@ -95,7 +96,9 @@ export function parseBibTeX(bibtexContent: string, locale?: string): Publication
       preview,
 
       // Store original BibTeX (excluding custom fields)
-      bibtex: reconstructBibTeX(entry, ['selected', 'preview', 'description', 'keywords', 'code']),
+      bibtex: status === 'under-review'
+        ? undefined
+        : reconstructBibTeX(entry, ['selected', 'preview', 'description', 'keywords', 'code']),
     };
 
     // Clean up undefined fields
