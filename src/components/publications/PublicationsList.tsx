@@ -55,6 +55,9 @@ export default function PublicationsList({ config, publications, embedded = fals
         });
     }, [publications, searchQuery, selectedYear, selectedType]);
 
+    const isWorkingPaper = (pub: Publication) =>
+        pub.status === 'under-review' || pub.status === 'in-progress';
+
     const renderCard = (pub: Publication, index: number) => (
         <motion.div
             key={pub.id}
@@ -94,15 +97,17 @@ export default function PublicationsList({ config, publications, embedded = fals
                             </span>
                         ))}
                     </p>
-                    {pub.status !== 'under-review' && (
+                    {!isWorkingPaper(pub) && (
                         <p className="text-sm font-semibold italic text-neutral-800 dark:text-neutral-600 mb-1">
                             {pub.journal || pub.conference} {pub.year}
                         </p>
                     )}
-                    {pub.status === 'under-review' && (
-                        <p className="text-sm text-accent mb-2 font-medium">Under Review</p>
+                    {isWorkingPaper(pub) && (
+                        <p className="text-sm text-accent mb-2 font-medium">
+                            {pub.status === 'in-progress' ? 'In Progress' : 'Under Review'}
+                        </p>
                     )}
-                    {pub.description && pub.status !== 'under-review' && (
+                    {pub.description && !isWorkingPaper(pub) && (
                         <div className="flex flex-wrap gap-1 mb-3">
                             {pub.description.split('·').map((tag, i) => (
                                 <span key={i} className="inline-block px-2 py-0.5 rounded text-xs font-medium bg-accent/10 text-accent border border-accent/20">
@@ -146,7 +151,7 @@ export default function PublicationsList({ config, publications, embedded = fals
                                 {messages.publications.abstract}
                             </button>
                         )}
-                        {pub.bibtex && pub.status !== 'under-review' && (
+                        {pub.bibtex && !isWorkingPaper(pub) && (
                             <button
                                 onClick={() => setExpandedBibtexId(expandedBibtexId === pub.id ? null : pub.id)}
                                 className={cn(
@@ -178,7 +183,7 @@ export default function PublicationsList({ config, publications, embedded = fals
                                 </div>
                             </motion.div>
                         )}
-                        {expandedBibtexId === pub.id && pub.bibtex && pub.status !== 'under-review' && (
+                        {expandedBibtexId === pub.id && pub.bibtex && !isWorkingPaper(pub) && (
                             <motion.div
                                 key="bibtex"
                                 initial={{ opacity: 0, height: 0 }}
@@ -207,8 +212,8 @@ export default function PublicationsList({ config, publications, embedded = fals
     );
 
     // Split into working papers and published, grouped by year
-    const workingPapers = filteredPublications.filter(p => p.status === 'under-review');
-    const published = filteredPublications.filter(p => p.status !== 'under-review');
+    const workingPapers = filteredPublications.filter(isWorkingPaper);
+    const published = filteredPublications.filter(p => !isWorkingPaper(p));
     const byYear = published.reduce<Record<number, Publication[]>>((acc, p) => {
         (acc[p.year] = acc[p.year] || []).push(p);
         return acc;

@@ -1,4 +1,4 @@
-import { Publication, PublicationType, ResearchArea } from '@/types/publication';
+import { Publication, PublicationStatus, PublicationType, ResearchArea } from '@/types/publication';
 import { getConfig } from './config';
 import { getRuntimeI18nConfig } from './i18n/config';
 import { parseBibTeXInline } from './bibtexInline';
@@ -59,9 +59,12 @@ export function parseBibTeX(bibtexContent: string, locale?: string): Publication
 
     // Parse selected field (convert string to boolean)
     const selected = tags.selected === 'true' || tags.selected === 'yes';
-    const status = (tags.note?.toLowerCase().includes('under review') || tags.note?.toLowerCase().includes('under-review'))
-      ? 'under-review' as const
-      : 'published' as const;
+    const normalizedNote = tags.note?.toLowerCase() || '';
+    const status: PublicationStatus = normalizedNote.includes('in progress') || normalizedNote.includes('in-progress')
+      ? 'in-progress'
+      : normalizedNote.includes('under review') || normalizedNote.includes('under-review')
+        ? 'under-review'
+        : 'published';
 
     // Parse preview field (remove braces if present)
     const preview = tags.preview?.replace(/[{}]/g, '');
@@ -96,7 +99,7 @@ export function parseBibTeX(bibtexContent: string, locale?: string): Publication
       preview,
 
       // Store original BibTeX (excluding custom fields)
-      bibtex: status === 'under-review'
+      bibtex: status === 'under-review' || status === 'in-progress'
         ? undefined
         : reconstructBibTeX(entry, ['selected', 'preview', 'description', 'keywords', 'code']),
     };
