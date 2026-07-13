@@ -12,13 +12,19 @@ content = "3次审稿 · SSCI JCR Q1"
 title = "Annals of Tourism Research"
 subtitle = "审稿人"
 date = "2023至今"
-content = "1次审稿 · SSCI JCR Q1"
+content = "2次审稿 · SSCI JCR Q1"
 
 [[items]]
 title = "Tourism Management"
 subtitle = "审稿人"
 date = "2023至今"
-content = "1次审稿 · SSCI JCR Q1"
+content = "2次审稿 · SSCI JCR Q1"
+
+[[items]]
+title = "Ecological Indicators"
+subtitle = "审稿人"
+date = "2023至今"
+content = "1次审稿 · SCI JCR Q1"
 
 [[items]]
 title = "Tourism Management Perspectives"
