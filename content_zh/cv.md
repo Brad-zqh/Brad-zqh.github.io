@@ -13,17 +13,17 @@
 
 ### 第一作者（已发表）
 
-- **赵秋皓**，Li, H.，王冰冰，徐鹏飞，金平斌（2025）。旅游竞争力动态决定因素研究。*Journal of Travel Research*。*(SSCI JCR Q1, IF-5=9.8)*
+- **赵秋皓**，Li, H.，王冰冰，徐鹏飞，金平斌（2025）。旅游竞争力动态决定因素研究。*Journal of Travel Research*。*(SSCI JCR Q1, IF=9.7, IF-5=11.0)*
 
-- **赵秋皓**，徐鹏飞，王冰冰，吴森森，吴茂瑛，金平斌（2024）。Does location affect the mechanism of tourism competitiveness? *Tourism Management Perspectives*, 53, 101291。*(SSCI JCR Q1, IF-5=8.0)*
+- **赵秋皓**，徐鹏飞，王冰冰，吴森森，吴茂瑛，金平斌（2024）。Does location affect the mechanism of tourism competitiveness? *Tourism Management Perspectives*, 53, 101291。*(SSCI JCR Q1, IF=8.3, IF-5=9.1)*
 
 - **赵秋皓**，金平斌，王冰冰，徐鹏飞（2023）。基于多源数据与机器学习的乡村旅游竞争力评价研究——以杭州市临安区为例。*地理科学进展*，42(8)，1541–1555。*(CSSCI, CSCD, IF=6.5)*
 
 ### 第一作者（审稿中）
 
-- **赵秋皓**，金平斌（2026）。香港可持续餐饮可达性社会不平等研究。*Environmental Science & Technology*。*(Nature Index, SCI JCR Q1, IF=11.3)*
+- **赵秋皓**，金平斌（2026）。香港可持续餐饮可达性社会不平等研究。*Environmental Science & Technology*。*(Nature Index, SCI JCR Q1, IF=12.2, IF-5=13.1)*
 
-- **赵秋皓**，金平斌（2026）。街景特征对共享住宿绩效影响研究。*Applied Geography*。*(SSCI JCR Q1, IF=5.4)*
+- **赵秋皓**，金平斌（2026）。Seen or felt? How objective and perceived streetscape cues shape home-sharing performance. *Applied Geography*。*(SSCI JCR Q1, IF=7.4, IF-5=6.8)*
 
 ## 奖项与荣誉
 
