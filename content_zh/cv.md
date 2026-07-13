@@ -21,9 +21,9 @@
 
 ### 第一作者（审稿中）
 
-- **赵秋皓**，金平斌（2026）。香港可持续餐饮可达性社会不平等研究。*Environmental Science & Technology*。*(Nature Index, SCI JCR Q1, IF=12.2, IF-5=13.1)*
+- **赵秋皓**，徐鹏飞，金平斌（2026）。香港可持续餐饮可达性社会不平等研究。*Environmental Science & Technology*。*(Nature Index, SCI JCR Q1, IF=12.2, IF-5=13.1)*
 
-- **赵秋皓**，金平斌（2026）。Seen or felt? How objective and perceived streetscape cues shape home-sharing performance. *Applied Geography*。*(SSCI JCR Q1, IF=7.4, IF-5=6.8)*
+- **赵秋皓**，徐鹏飞，金平斌（2026）。Seen or felt? How objective and perceived streetscape cues shape home-sharing performance. *Applied Geography*。*(SSCI JCR Q1, IF=7.4, IF-5=6.8)*
 
 ## 奖项与荣誉
 
