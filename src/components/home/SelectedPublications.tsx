@@ -34,7 +34,10 @@ export default function SelectedPublications({ publications, title, enableOnePag
                 </Link>
             </div>
             <div className="space-y-4">
-                {publications.map((pub, index) => (
+                {publications.map((pub, index) => {
+                    const articleUrl = pub.url || (pub.doi ? `https://doi.org/${pub.doi}` : undefined);
+
+                    return (
                     <motion.div
                         key={pub.id}
                         initial={{ opacity: 0, y: 20 }}
@@ -46,7 +49,13 @@ export default function SelectedPublications({ publications, title, enableOnePag
                             {/* Paper preview image */}
                             {pub.preview && (
                                 <div className="sm:w-60 sm:flex-shrink-0 w-full h-44 sm:h-auto relative">
-                                    <div className="w-full h-full rounded-l-lg overflow-hidden shadow-[4px_6px_18px_rgba(0,0,0,0.18)]">
+                                    <a
+                                        href={articleUrl}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        aria-label={`Open article: ${pub.title}`}
+                                        className={`block w-full h-full rounded-l-lg overflow-hidden shadow-[4px_6px_18px_rgba(0,0,0,0.18)] ${articleUrl ? 'cursor-pointer' : 'pointer-events-none'}`}
+                                    >
                                         <Image
                                             src={`/papers/${pub.preview}`}
                                             alt={`Preview for ${pub.title}`}
@@ -54,13 +63,19 @@ export default function SelectedPublications({ publications, title, enableOnePag
                                             className="object-cover bg-neutral-50 dark:bg-neutral-700"
                                             sizes="(max-width: 640px) 100vw, 240px"
                                         />
-                                    </div>
+                                    </a>
                                 </div>
                             )}
                             {/* Text content */}
                             <div className="p-4 flex-1">
                                 <h3 className="text-sm font-semibold text-primary mb-1.5 leading-snug">
-                                    <FormattedBibTeXText nodes={pub.titleNodes} fallback={pub.title} />
+                                    {articleUrl ? (
+                                        <a href={articleUrl} target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors">
+                                            <FormattedBibTeXText nodes={pub.titleNodes} fallback={pub.title} />
+                                        </a>
+                                    ) : (
+                                        <FormattedBibTeXText nodes={pub.titleNodes} fallback={pub.title} />
+                                    )}
                                 </h3>
                                 <p className="text-xs text-neutral-600 dark:text-neutral-500 mb-1">
                                     {pub.authors.map((author, idx) => (
@@ -92,7 +107,8 @@ export default function SelectedPublications({ publications, title, enableOnePag
                             </div>
                         </div>
                     </motion.div>
-                ))}
+                    );
+                })}
             </div>
         </motion.section>
     );

@@ -18,23 +18,17 @@ source = "bio.md"
 title = "About"
 
 [[sections]]
-id = "education"
-type = "education"
-source = "education.toml"
-title = "Education"
-
-[[sections]]
-id = "projects"
-type = "projects"
-source = "projects.toml"
-title = "Selected Personal Projects"
-
-[[sections]]
 id = "featured_publications"
 type = "publications"
 title = "Selected Publications"
 filter = "selected"
 limit = 5
+
+[[sections]]
+id = "education"
+type = "education"
+source = "education.toml"
+title = "Education"
 
 [[sections]]
 id = "conferences"
@@ -47,3 +41,9 @@ id = "news"
 type = "list"
 title = "News"
 source = "news.toml"
+
+[[sections]]
+id = "projects"
+type = "projects"
+source = "projects.toml"
+title = "Selected Personal Projects"

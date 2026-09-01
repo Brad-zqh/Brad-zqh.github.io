@@ -1,5 +1,8 @@
 'use client';
 
+import { useEffect, useState } from 'react';
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
+
 import Profile from '@/components/home/Profile';
 import About from '@/components/home/About';
 import SelectedPublications from '@/components/home/SelectedPublications';
@@ -51,10 +54,37 @@ interface HomePageClientProps {
   defaultLocale: string;
 }
 
+const heroStatementsByLocale = {
+  en: [
+    'Understanding cities, environments, and human experience through spatial data.',
+    'Connecting urban environments, mental health, and social equity.',
+    'Turning multimodal urban data into evidence for more sustainable places.',
+  ],
+  zh: [
+    '用空间数据理解城市、环境与人的体验。',
+    '连接城市环境、心理健康与社会公平。',
+    '让多模态城市数据转化为可持续地方发展的证据。',
+  ],
+} as const;
+
 export default function HomePageClient({ dataByLocale, defaultLocale }: HomePageClientProps) {
   const locale = useLocaleStore((state) => state.locale);
+  const [heroIndex, setHeroIndex] = useState(0);
+  const shouldReduceMotion = useReducedMotion();
+  const heroStatements = locale === 'zh' ? heroStatementsByLocale.zh : heroStatementsByLocale.en;
   const fallback = dataByLocale[defaultLocale] || Object.values(dataByLocale)[0];
   const data = dataByLocale[locale] || fallback;
+
+  useEffect(() => {
+    setHeroIndex(0);
+    if (shouldReduceMotion) return;
+
+    const timer = window.setInterval(() => {
+      setHeroIndex((current) => (current + 1) % heroStatements.length);
+    }, 5500);
+
+    return () => window.clearInterval(timer);
+  }, [heroStatements, shouldReduceMotion]);
 
   if (!data) {
     return null;
@@ -80,13 +110,36 @@ export default function HomePageClient({ dataByLocale, defaultLocale }: HomePage
             <section key={page.id} id={page.id} className="scroll-mt-24 space-y-12">
               {page.type === 'about' && (
                 <div className="research-hero">
-                  <span className="research-hero__eyebrow">Research · Data · Places</span>
-                  <p className="research-hero__title">
-                    {locale === 'zh'
-                      ? '用空间数据理解城市、环境与人的体验。'
-                      : 'Understanding cities, environments, and human experience through spatial data.'}
-                  </p>
-                  <div className="research-hero__signal" aria-hidden="true"><span /><span /><span /></div>
+                  <span className="research-hero__eyebrow">
+                    {locale === 'zh' ? '研究 · 数据 · 地方' : 'Research · Data · Places'}
+                  </span>
+                  <AnimatePresence mode="wait">
+                    <motion.p
+                      key={heroIndex}
+                      className="research-hero__title"
+                      initial={{ opacity: 0, y: 12 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      transition={{ duration: 0.45, ease: 'easeOut' }}
+                    >
+                      {heroStatements[heroIndex]}
+                    </motion.p>
+                  </AnimatePresence>
+                  <div
+                    className="research-hero__signal"
+                    aria-label={locale === 'zh' ? '研究主题轮播' : 'Research focus carousel'}
+                  >
+                    {heroStatements.map((statement, index) => (
+                      <button
+                        key={statement}
+                        type="button"
+                        className={index === heroIndex ? 'is-active' : ''}
+                        aria-label={locale === 'zh' ? `显示第 ${index + 1} 个研究主题` : `Show research focus ${index + 1}`}
+                        aria-current={index === heroIndex ? 'true' : undefined}
+                        onClick={() => setHeroIndex(index)}
+                      />
+                    ))}
+                  </div>
                 </div>
               )}
 {page.type === 'about' && page.sections.map((section: SectionConfig) => {
@@ -172,7 +225,7 @@ export default function HomePageClient({ dataByLocale, defaultLocale }: HomePage
 
       {/* Visitor Map */}
       <div className="mt-16 max-w-3xl mx-auto visitor-shell">
-        <h2 className="section-title mb-5">Visitors</h2>
+        <h2 className="section-title mb-5">{locale === 'zh' ? '访问足迹' : 'Visitors'}</h2>
         <VisitorMap />
       </div>
       </div>

@@ -58,7 +58,10 @@ export default function PublicationsList({ config, publications, embedded = fals
     const isWorkingPaper = (pub: Publication) =>
         pub.status === 'under-review' || pub.status === 'in-progress';
 
-    const renderCard = (pub: Publication, index: number) => (
+    const renderCard = (pub: Publication, index: number) => {
+        const articleUrl = pub.url || (pub.doi ? `https://doi.org/${pub.doi}` : undefined);
+
+        return (
         <motion.div
             key={pub.id}
             initial={{ opacity: 0, y: 20 }}
@@ -69,7 +72,13 @@ export default function PublicationsList({ config, publications, embedded = fals
             <div className="flex flex-col md:flex-row gap-6">
                 {pub.preview && (
                     <div className="w-full md:w-72 flex-shrink-0">
-                        <div className="aspect-video md:aspect-[4/3] relative rounded-lg overflow-hidden shadow-[4px_6px_18px_rgba(0,0,0,0.18)] bg-neutral-50 dark:bg-neutral-800">
+                        <a
+                            href={articleUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label={`Open article: ${pub.title}`}
+                            className={`block aspect-video md:aspect-[4/3] relative rounded-lg overflow-hidden shadow-[4px_6px_18px_rgba(0,0,0,0.18)] bg-neutral-50 dark:bg-neutral-800 ${articleUrl ? 'cursor-pointer' : 'pointer-events-none'}`}
+                        >
                             <Image
                                 src={`/papers/${pub.preview}`}
                                 alt={pub.title}
@@ -77,12 +86,18 @@ export default function PublicationsList({ config, publications, embedded = fals
                                 className="object-cover"
                                 sizes="(max-width: 768px) 100vw, 288px"
                             />
-                        </div>
+                        </a>
                     </div>
                 )}
                 <div className="flex-grow">
                     <h3 className={`${embedded ? "text-lg" : "text-xl"} font-semibold text-primary mb-2 leading-tight`}>
-                        <FormattedBibTeXText nodes={pub.titleNodes} fallback={pub.title} />
+                        {articleUrl ? (
+                            <a href={articleUrl} target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors">
+                                <FormattedBibTeXText nodes={pub.titleNodes} fallback={pub.title} />
+                            </a>
+                        ) : (
+                            <FormattedBibTeXText nodes={pub.titleNodes} fallback={pub.title} />
+                        )}
                     </h3>
                     <p className={`${embedded ? "text-sm" : "text-base"} text-neutral-600 dark:text-neutral-400 mb-2`}>
                         {pub.authors.map((author, idx) => (
@@ -209,7 +224,8 @@ export default function PublicationsList({ config, publications, embedded = fals
                 </div>
             </div>
         </motion.div>
-    );
+        );
+    };
 
     // Split into working papers and published, grouped by year
     const workingPapers = filteredPublications.filter(isWorkingPaper);

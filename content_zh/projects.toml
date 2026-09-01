@@ -2,7 +2,7 @@
 title = "KUN Chat"
 subtitle = "基于角色设定的语音 AI"
 description = "融合 DeepSeek、MiniMax 高保真语音合成、角色专属 RAG、语音输入、多模态对话、音频缓存与网页部署的个性化对话系统。"
-image = "/projects/kun-chat-cover.webp"
+image = "/projects/kun-chat-cover-en.webp"
 image_fit = "cover"
 live_url = "https://brad-zqh.github.io/KUN-Chat/?v=20260723-2"
 github_url = "https://github.com/Brad-zqh/KUN-Chat-Web"

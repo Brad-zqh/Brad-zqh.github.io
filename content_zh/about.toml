@@ -18,18 +18,6 @@ source = "bio.md"
 title = "关于我"
 
 [[sections]]
-id = "education"
-type = "markdown"
-source = "education.md"
-title = "教育经历"
-
-[[sections]]
-id = "projects"
-type = "projects"
-source = "projects.toml"
-title = "个人项目精选"
-
-[[sections]]
 id = "featured_publications"
 type = "publications"
 title = "代表性论文"
@@ -37,7 +25,19 @@ filter = "selected"
 limit = 5
 
 [[sections]]
+id = "education"
+type = "markdown"
+source = "education.md"
+title = "教育经历"
+
+[[sections]]
 id = "news"
 type = "list"
 title = "动态"
 source = "news.toml"
+
+[[sections]]
+id = "projects"
+type = "projects"
+source = "projects.toml"
+title = "个人项目精选"

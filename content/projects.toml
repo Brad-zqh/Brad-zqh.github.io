@@ -2,7 +2,7 @@
 title = "KUN Chat"
 subtitle = "Persona-Grounded Voice AI"
 description = "A persona-grounded conversational AI system combining DeepSeek, MiniMax high-fidelity speech synthesis, persona-specific RAG, voice input, multimodal dialogue, audio caching, and web deployment."
-image = "/projects/kun-chat-cover.webp"
+image = "/projects/kun-chat-cover-en.webp"
 image_fit = "cover"
 live_url = "https://brad-zqh.github.io/KUN-Chat/?v=20260723-2"
 github_url = "https://github.com/Brad-zqh/KUN-Chat-Web"
