@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { ArrowUpRight, Github, Sparkles } from 'lucide-react';
+import { useLocaleStore } from '@/lib/stores/localeStore';
 
 export interface ProjectEntry {
   title: string;
@@ -19,11 +20,19 @@ export interface ProjectEntry {
 interface ProjectsProps {
   entries: ProjectEntry[];
   title?: string;
+  sectionId?: string;
 }
 
-export default function Projects({ entries, title = 'Selected Projects' }: ProjectsProps) {
+export default function Projects({ entries, title = 'Selected Projects', sectionId }: ProjectsProps) {
+  const locale = useLocaleStore((state) => state.locale);
+  const labels = locale === 'zh'
+    ? { kicker: '研究之外', live: '在线体验', technologies: '技术与方法', preview: '界面预览' }
+    : { kicker: 'Beyond research', live: 'Live Demo', technologies: 'Technologies and methods', preview: 'interface preview' };
+
   return (
     <motion.section
+      id={sectionId}
+      className="scroll-mt-24"
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.15 }}
@@ -31,7 +40,7 @@ export default function Projects({ entries, title = 'Selected Projects' }: Proje
     >
       <div className="section-heading">
         <div>
-          <span className="section-kicker"><Sparkles aria-hidden="true" /> Beyond research</span>
+          <span className="section-kicker"><Sparkles aria-hidden="true" /> {labels.kicker}</span>
           <h2 className="section-title">{title}</h2>
         </div>
         <span className="section-rule" aria-hidden="true" />
@@ -51,7 +60,7 @@ export default function Projects({ entries, title = 'Selected Projects' }: Proje
             <div className={`project-visual project-visual--${project.image_fit || 'cover'}`}>
               <Image
                 src={project.image}
-                alt={`${project.title} interface preview`}
+                alt={`${project.title} ${labels.preview}`}
                 fill
                 sizes="(max-width: 768px) 100vw, 360px"
                 className={project.image_fit === 'contain' ? 'object-contain p-12' : 'object-cover'}
@@ -66,14 +75,14 @@ export default function Projects({ entries, title = 'Selected Projects' }: Proje
               <p className="project-description">{project.description}</p>
 
               {project.tags && project.tags.length > 0 && (
-                <div className="project-tags" aria-label="Technologies and methods">
+                <div className="project-tags" aria-label={labels.technologies}>
                   {project.tags.map((tag) => <span key={tag}>{tag}</span>)}
                 </div>
               )}
 
               <div className="project-actions">
                 <a href={project.live_url} target="_blank" rel="noopener noreferrer" className="project-link project-link--primary">
-                  Live Demo <ArrowUpRight aria-hidden="true" />
+                  {labels.live} <ArrowUpRight aria-hidden="true" />
                 </a>
                 <a href={project.github_url} target="_blank" rel="noopener noreferrer" className="project-link">
                   <Github aria-hidden="true" /> GitHub

@@ -13,6 +13,7 @@ import { HeartIcon as HeartSolidIcon } from '@heroicons/react/24/solid';
 import { Github, Linkedin } from 'lucide-react';
 import type { SiteConfig } from '@/lib/config';
 import { useMessages } from '@/lib/i18n/useMessages';
+import { useLocaleStore } from '@/lib/stores/localeStore';
 
 // Custom ORCID icon component — white circle, blue border, blue iD
 const OrcidIcon = ({ className }: { className?: string }) => (
@@ -39,6 +40,7 @@ interface ProfileProps {
 
 export default function Profile({ author, social, features, researchInterests }: ProfileProps) {
     const messages = useMessages();
+    const locale = useLocaleStore((state) => state.locale);
 
     const [hasLiked, setHasLiked] = useState(false);
     const [showThanks, setShowThanks] = useState(false);
@@ -88,7 +90,7 @@ export default function Profile({ author, social, features, researchInterests }:
 
             {/* Name and Title */}
             <div className="text-center mb-6">
-                <p className="profile-overline">Spatial researcher</p>
+                <p className="profile-overline">{locale === 'zh' ? '空间研究者' : 'Spatial researcher'}</p>
                 <h1 className="text-2xl font-bold text-primary mb-2 tracking-tight">
                     {author.name}
                 </h1>

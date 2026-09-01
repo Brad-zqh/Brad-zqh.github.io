@@ -86,6 +86,29 @@ export default function HomePageClient({ dataByLocale, defaultLocale }: HomePage
     return () => window.clearInterval(timer);
   }, [heroStatements, shouldReduceMotion]);
 
+  useEffect(() => {
+    const scrollToHash = (animate = true) => {
+      const targetId = decodeURIComponent(window.location.hash.slice(1));
+      if (!targetId) return;
+
+      window.requestAnimationFrame(() => {
+        document.getElementById(targetId)?.scrollIntoView({
+          behavior: animate && !shouldReduceMotion ? 'smooth' : 'auto',
+          block: 'start',
+        });
+      });
+    };
+
+    const handleHashChange = () => scrollToHash(true);
+    const initialScroll = window.setTimeout(() => scrollToHash(false), 120);
+    window.addEventListener('hashchange', handleHashChange);
+
+    return () => {
+      window.clearTimeout(initialScroll);
+      window.removeEventListener('hashchange', handleHashChange);
+    };
+  }, [data, shouldReduceMotion]);
+
   if (!data) {
     return null;
   }
@@ -142,7 +165,7 @@ export default function HomePageClient({ dataByLocale, defaultLocale }: HomePage
                   </div>
                 </div>
               )}
-{page.type === 'about' && page.sections.map((section: SectionConfig) => {
+              {page.type === 'about' && page.sections.map((section: SectionConfig) => {
                 switch (section.type) {
                   case 'markdown':
                     return (
@@ -190,6 +213,7 @@ export default function HomePageClient({ dataByLocale, defaultLocale }: HomePage
                     return (
                       <Projects
                         key={section.id}
+                        sectionId={section.id}
                         entries={section.projectEntries || []}
                         title={section.title}
                       />

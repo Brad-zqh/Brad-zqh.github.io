@@ -28,6 +28,12 @@ target = "publications"
 href = "/publications"
 
 [[navigation]]
+title = "会议"
+type = "page"
+target = "conferences-page"
+href = "/conferences-page"
+
+[[navigation]]
 title = "奖项"
 type = "page"
 target = "awards"

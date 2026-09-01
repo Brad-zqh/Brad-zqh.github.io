@@ -34,6 +34,7 @@ export default function Navigation({
   const pathname = usePathname();
   const locale = useLocaleStore((state) => state.locale);
   const [scrolled, setScrolled] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
   const [activeHash, setActiveHash] = useState('');
   const [hoveredHref, setHoveredHref] = useState<string | null>(null);
   const messages = useMessages();
@@ -55,8 +56,11 @@ export default function Navigation({
     const handleScroll = () => {
       const isScrolled = window.scrollY > 20;
       setScrolled(isScrolled);
+      const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+      setScrollProgress(scrollable > 0 ? Math.min(window.scrollY / scrollable, 1) : 0);
     };
 
+    handleScroll();
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -265,6 +269,11 @@ export default function Navigation({
               </div>
             </div>
           </motion.div>
+          <motion.div
+            className="nav-progress"
+            aria-hidden="true"
+            style={{ scaleX: scrollProgress }}
+          />
 
           <AnimatePresence>
             {open && (

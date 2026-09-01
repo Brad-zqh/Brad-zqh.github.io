@@ -7,6 +7,7 @@ import { LocaleProvider } from '@/components/ui/LocaleProvider';
 import { getConfig } from '@/lib/config';
 import { getRuntimeI18nConfig } from '@/lib/i18n/config';
 import type { SiteConfig } from '@/lib/config';
+import BackToTop from '@/components/ui/BackToTop';
 
 export async function generateMetadata(): Promise<Metadata> {
   const config = getConfig();
@@ -233,6 +234,7 @@ export default function RootLayout({
               lastUpdatedByLocale={lastUpdatedByLocale}
               defaultLocale={runtimeI18n.defaultLocale}
             />
+            <BackToTop />
           </LocaleProvider>
         </ThemeProvider>
       </body>
