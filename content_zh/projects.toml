@@ -1,0 +1,21 @@
+[[projects]]
+title = "KUN Chat"
+subtitle = "基于角色设定的语音 AI"
+description = "融合 DeepSeek、MiniMax 高保真语音合成、角色专属 RAG、语音输入、多模态对话、音频缓存与网页部署的个性化对话系统。"
+image = "/projects/kun-chat-cover.webp"
+image_fit = "cover"
+live_url = "https://brad-zqh.github.io/KUN-Chat/?v=20260723-2"
+github_url = "https://github.com/Brad-zqh/KUN-Chat-Web"
+tags = ["语音 AI", "RAG", "多模态", "Cloudflare D1"]
+accent = "blue"
+
+[[projects]]
+title = "Hao Quant"
+subtitle = "AI 辅助股票研究与模拟交易平台"
+description = "面向美股与 A 股的 Python 量化平台，集成十二因子选股、市场状态与情绪分析、ATR 风控、回测、模拟交易及 DeepSeek 辅助解读。"
+image = "/projects/hao-quant-icon.webp"
+image_fit = "contain"
+live_url = "https://brad-zqh.github.io/us-stock-quant/"
+github_url = "https://github.com/Brad-zqh/us-stock-quant"
+tags = ["Python", "量化研究", "回测", "风险控制"]
+accent = "coral"

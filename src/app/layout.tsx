@@ -203,11 +203,12 @@ export default function RootLayout({
                 "https://www.linkedin.com/in/qiuhao-zhao-818989325/"
               ],
               "knowsAbout": [
-                "Spatiotemporal Big Data",
-                "Tourism Geography",
-                "GIS",
-                "Machine Learning",
-                "Urban Geography"
+                "Urban Environment and Mental Health",
+                "Urban Sustainability and Social Equity",
+                "Tourism Big Data Analysis",
+                "Spatiotemporal Machine Learning",
+                "Multimodal Data and Large Language Models",
+                "Geographic Information Science"
               ]
             })
           }}

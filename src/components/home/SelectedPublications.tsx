@@ -24,7 +24,7 @@ export default function SelectedPublications({ publications, title, enableOnePag
             transition={{ duration: 0.6, delay: 0.4 }}
         >
             <div className="flex items-center justify-between mb-4">
-                <h2 className="text-2xl font-serif font-bold text-primary">{resolvedTitle}</h2>
+                <h2 className="section-title">{resolvedTitle}</h2>
                 <Link
                     href={enableOnePageMode ? "/#publications" : "/publications"}
                     prefetch={true}
@@ -40,7 +40,7 @@ export default function SelectedPublications({ publications, title, enableOnePag
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.4, delay: 0.1 * index }}
-                        className="bg-white dark:bg-neutral-800 rounded-lg shadow-sm border border-neutral-200 dark:border-[rgba(148,163,184,0.24)] hover:shadow-lg transition-all duration-200 hover:scale-[1.02] overflow-hidden"
+                        className="academic-card overflow-hidden"
                     >
                         <div className="flex flex-col sm:flex-row">
                             {/* Paper preview image */}

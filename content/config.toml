@@ -1,8 +1,8 @@
 [site]
 title = "Qiuhao Zhao"
-description = "PhD student at Zhejiang University, School of Earth Sciences."
+description = "Qiuhao Zhao — PhD candidate at Zhejiang University researching urban environments, mental health, tourism big data, and spatial machine learning."
 favicon = "/favicon.svg"
-last_updated = "June 2026"
+last_updated = "September 2026"
 
 [author]
 name = "Qiuhao Zhao (Brad)"
@@ -64,6 +64,12 @@ title = "Awards"
 type = "page"
 target = "awards"
 href = "/awards"
+
+[[navigation]]
+title = "Projects"
+type = "link"
+target = "projects"
+href = "/#projects"
 
 [[navigation]]
 title = "Services"

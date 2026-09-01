@@ -1,0 +1,21 @@
+[[projects]]
+title = "KUN Chat"
+subtitle = "Persona-Grounded Voice AI"
+description = "A persona-grounded conversational AI system combining DeepSeek, MiniMax high-fidelity speech synthesis, persona-specific RAG, voice input, multimodal dialogue, audio caching, and web deployment."
+image = "/projects/kun-chat-cover.webp"
+image_fit = "cover"
+live_url = "https://brad-zqh.github.io/KUN-Chat/?v=20260723-2"
+github_url = "https://github.com/Brad-zqh/KUN-Chat-Web"
+tags = ["Voice AI", "RAG", "Multimodal", "Cloudflare D1"]
+accent = "blue"
+
+[[projects]]
+title = "Hao Quant"
+subtitle = "AI-Assisted Equity Research & Paper Trading"
+description = "A Python platform for U.S. and China equities with 12-factor ranking, market-regime and sentiment analysis, ATR risk controls, backtesting, paper trading, and DeepSeek-assisted explanations."
+image = "/projects/hao-quant-icon.webp"
+image_fit = "contain"
+live_url = "https://brad-zqh.github.io/us-stock-quant/"
+github_url = "https://github.com/Brad-zqh/us-stock-quant"
+tags = ["Python", "Quant Research", "Backtesting", "Risk Control"]
+accent = "coral"

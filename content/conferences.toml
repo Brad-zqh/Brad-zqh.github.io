@@ -15,10 +15,10 @@ year = "May 2025"
 photos = ["/conference/apacchrie-2025.jpg"]
 
 [[entries]]
-name = "IMPACT 2025"
+name = "IMPACT 2024"
 host = "Hong Kong Polytechnic University"
 type = "Oral"
-year = "Nov. 2024"
+year = "Oct. 2024"
 photos = ["/conference/impact-2025.jpg"]
 
 [[entries]]
@@ -26,15 +26,15 @@ name = "National Tourism Geography Annual Conference (全国旅游地理学年�
 full_name = "2024 National Tourism Geography Annual Conference"
 host = "Guangzhou, China"
 type = "Oral"
-year = "Aug. 2024"
+year = "Jul. 2024"
 photos = ["/conference/tourism-geo-2024.jpg"]
 
 [[entries]]
 name = "National Human Geography Conference (全国人文地理学大会)"
 full_name = "2023 National Human Geography Conference"
-host = "Shaanxi Normal University"
+host = "Northwest Normal University, Lanzhou, China"
 type = "Oral"
-year = "Aug. 2023"
+year = "Jul. 2023"
 photos = ["/conference/human-geo-2023.jpg"]
 
 [[entries]]
@@ -42,5 +42,5 @@ name = "Zhejiang Geographical Society Annual Conference (浙江省地理学会�
 full_name = "2022 Annual Academic Conference of Zhejiang Geographical Society"
 host = "Zhejiang University"
 type = "Oral"
-year = "Oct. 2022"
+year = "Nov. 2022"
 photos = ["/conference/zhejiang-geo-2022.jpg"]

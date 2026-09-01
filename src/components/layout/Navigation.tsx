@@ -25,9 +25,11 @@ interface NavigationProps {
 
 export default function Navigation({
   items,
+  siteTitle,
   enableOnePageMode,
   i18n,
   itemsByLocale,
+  siteTitleByLocale,
 }: NavigationProps) {
   const pathname = usePathname();
   const locale = useLocaleStore((state) => state.locale);
@@ -47,6 +49,7 @@ export default function Navigation({
   const effectiveItems = useMemo(() => {
     return itemsByLocale?.[resolvedLocale] || itemsByLocale?.[i18n.defaultLocale] || items;
   }, [i18n.defaultLocale, items, itemsByLocale, resolvedLocale]);
+  const effectiveSiteTitle = siteTitleByLocale?.[resolvedLocale] || siteTitleByLocale?.[i18n.defaultLocale] || siteTitle;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -160,7 +163,7 @@ export default function Navigation({
             animate={{ y: 0 }}
             transition={{ duration: 0.6 }}
             className={cn(
-              'transition-all duration-300 ease-out',
+              'nav-surface transition-all duration-300 ease-out',
               scrolled
                 ? 'bg-background/90 backdrop-blur-xl border-b border-neutral-200/50 shadow-sm'
                 : 'bg-transparent'
@@ -175,9 +178,10 @@ export default function Navigation({
                 >
                   <Link
                     href="/"
-                    className="text-xl font-bold text-primary hover:text-accent transition-colors duration-200"
+                    className="brand-mark text-lg font-bold text-primary hover:text-accent transition-colors duration-200"
                   >
-                    Homepage
+                    <span aria-hidden="true" />
+                    <span className="brand-label">{effectiveSiteTitle}</span>
                   </Link>
                 </motion.div>
 
@@ -241,7 +245,7 @@ export default function Navigation({
                   </div>
                 </div>
 
-                <div className="lg:hidden flex items-center space-x-2">
+                <div className="mobile-nav-controls lg:hidden flex items-center space-x-1">
                   <LanguageToggle i18n={i18n} />
                   <ThemeToggle />
                   <Disclosure.Button className="inline-flex items-center justify-center p-2 rounded-md text-neutral-600 hover:text-primary hover:bg-neutral-100 dark:hover:bg-neutral-800 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-accent transition-colors duration-200">

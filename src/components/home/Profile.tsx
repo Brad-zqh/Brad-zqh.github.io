@@ -72,10 +72,10 @@ export default function Profile({ author, social, features, researchInterests }:
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="sticky top-8"
+            className="profile-panel sticky top-24"
         >
             {/* Profile Image */}
-            <div className="w-64 h-64 mx-auto mb-6 rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105">
+            <div className="profile-avatar w-56 h-56 mx-auto mb-6 rounded-[1.75rem] overflow-hidden transition-all duration-300">
                 <Image
                     src={author.avatar}
                     alt={author.name}
@@ -88,7 +88,8 @@ export default function Profile({ author, social, features, researchInterests }:
 
             {/* Name and Title */}
             <div className="text-center mb-6">
-                <h1 className="text-xl font-bold text-primary mb-2">
+                <p className="profile-overline">Spatial researcher</p>
+                <h1 className="text-2xl font-bold text-primary mb-2 tracking-tight">
                     {author.name}
                 </h1>
                 <p className="text-lg text-accent font-medium mb-1">
@@ -100,7 +101,7 @@ export default function Profile({ author, social, features, researchInterests }:
             </div>
 
             {/* Contact Info List */}
-            <div className="mb-6 space-y-2">
+            <div className="profile-links mb-6 space-y-1">
                 {social.location && (
                     <a
                         href={social.location_url || '#'}
@@ -182,11 +183,11 @@ export default function Profile({ author, social, features, researchInterests }:
 
             {/* Research Interests */}
             {researchInterests && researchInterests.length > 0 && (
-                <div className="bg-white dark:bg-neutral-800 rounded-lg p-4 mb-6">
+                <div className="interest-panel mb-6">
                     <h3 className="font-semibold text-primary mb-3">{messages.profile.researchInterests}</h3>
-                    <div className="flex flex-col gap-2">
+                    <div className="flex flex-wrap gap-2">
                         {researchInterests.map((interest, index) => (
-                            <span key={index} className="inline-block px-2.5 py-1 rounded-full text-xs font-medium bg-white dark:bg-neutral-700 text-accent border border-accent/30 w-fit">
+                            <span key={index} className="interest-chip">
                                 {interest}
                             </span>
                         ))}

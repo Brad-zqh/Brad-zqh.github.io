@@ -26,10 +26,10 @@ export default function Education({ entries, title = 'Education' }: EducationPro
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
         >
-            <h2 className="text-2xl font-serif font-bold text-primary mb-4">{title}</h2>
+            <h2 className="section-title mb-4">{title}</h2>
             <div className="space-y-4">
                 {entries.map((entry, index) => (
-                    <div key={index} className="flex items-start gap-4">
+                    <div key={index} className="academic-row flex items-start gap-4">
                         {/* Logo */}
                         <div className="flex-shrink-0 w-12 h-12 rounded-full overflow-hidden border border-neutral-200 dark:border-neutral-700 bg-white flex items-center justify-center">
                             {entry.logo ? (
@@ -49,7 +49,7 @@ export default function Education({ entries, title = 'Education' }: EducationPro
 
                         {/* Content */}
                         <div className="flex-1 min-w-0">
-                            <div className="flex items-start justify-between gap-2">
+                            <div className="education-line flex items-start justify-between gap-2">
                                 <div>
                                     <p className="font-semibold text-primary">{entry.institution}</p>
                                     <p className="text-sm text-neutral-500 dark:text-neutral-400">{entry.department}</p>

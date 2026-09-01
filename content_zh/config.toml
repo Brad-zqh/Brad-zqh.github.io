@@ -1,7 +1,7 @@
 [site]
 title = "赵秋皓"
-description = "浙江大学地球科学学院博士生个人主页。"
-last_updated = "2026年6月"
+description = "赵秋皓，浙江大学博士候选人，研究城市环境与心理健康、旅游大数据及时空机器学习。"
+last_updated = "2026年9月"
 
 [author]
 name = "赵秋皓"
@@ -32,6 +32,12 @@ title = "奖项"
 type = "page"
 target = "awards"
 href = "/awards"
+
+[[navigation]]
+title = "项目"
+type = "link"
+target = "projects"
+href = "/#projects"
 
 [[navigation]]
 title = "学术服务"

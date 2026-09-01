@@ -54,7 +54,7 @@ export default function Conferences({ entries, title = 'Conferences', compact = 
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
         >
-            <h2 className="text-2xl font-serif font-bold text-primary mb-4">{title}</h2>
+            <h2 className="section-title mb-4">{title}</h2>
 
             <div className="space-y-3">
                 {entries.map((entry, index) => (
@@ -63,7 +63,7 @@ export default function Conferences({ entries, title = 'Conferences', compact = 
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.4, delay: 0.08 * index }}
-                        className="bg-white dark:bg-neutral-800 rounded-lg shadow-sm border border-neutral-200 dark:border-[rgba(148,163,184,0.24)] hover:shadow-lg transition-all duration-200 hover:scale-[1.01] overflow-hidden"
+                        className="academic-card overflow-hidden"
                     >
                         <div className="flex flex-col sm:flex-row">
                             {/* Photo — only shown in full (non-compact) mode */}

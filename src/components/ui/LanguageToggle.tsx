@@ -53,8 +53,8 @@ export default function LanguageToggle({ i18n }: LanguageToggleProps) {
         title={currentLabel}
       >
         <LanguageIcon className="h-4 w-4" />
-        <span className="text-xs font-medium">{currentLabel}</span>
-        <ChevronDownIcon className="h-3.5 w-3.5" />
+        <span className="language-toggle-label text-xs font-medium">{currentLabel}</span>
+        <ChevronDownIcon className="language-toggle-chevron h-3.5 w-3.5" />
       </motion.button>
 
       {isOpen && (
