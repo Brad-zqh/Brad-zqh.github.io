@@ -60,11 +60,15 @@ export function parseBibTeX(bibtexContent: string, locale?: string): Publication
     // Parse selected field (convert string to boolean)
     const selected = tags.selected === 'true' || tags.selected === 'yes';
     const normalizedNote = tags.note?.toLowerCase() || '';
-    const status: PublicationStatus = normalizedNote.includes('in progress') || normalizedNote.includes('in-progress')
-      ? 'in-progress'
+    const status: PublicationStatus = normalizedNote.includes('under revision') || normalizedNote.includes('under-revision')
+      ? 'under-revision'
       : normalizedNote.includes('under review') || normalizedNote.includes('under-review')
         ? 'under-review'
-        : 'published';
+        : normalizedNote.includes('working paper') || normalizedNote.includes('working-paper')
+          ? 'working-paper'
+          : normalizedNote.includes('in progress') || normalizedNote.includes('in-progress')
+            ? 'in-progress'
+            : 'published';
 
     // Parse preview field (remove braces if present)
     const preview = tags.preview?.replace(/[{}]/g, '');
@@ -99,7 +103,7 @@ export function parseBibTeX(bibtexContent: string, locale?: string): Publication
       preview,
 
       // Store original BibTeX (excluding custom fields)
-      bibtex: status === 'under-review' || status === 'in-progress'
+      bibtex: ['under-review', 'under-revision', 'working-paper', 'in-progress'].includes(status)
         ? undefined
         : reconstructBibTeX(entry, ['selected', 'preview', 'description', 'keywords', 'code']),
     };

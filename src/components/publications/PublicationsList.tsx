@@ -56,7 +56,20 @@ export default function PublicationsList({ config, publications, embedded = fals
     }, [publications, searchQuery, selectedYear, selectedType]);
 
     const isWorkingPaper = (pub: Publication) =>
-        pub.status === 'under-review' || pub.status === 'in-progress';
+        ['under-review', 'under-revision', 'working-paper', 'in-progress'].includes(pub.status);
+
+    const getWorkingPaperStatus = (pub: Publication) => {
+        switch (pub.status) {
+            case 'under-revision':
+                return messages.publications.underRevision;
+            case 'under-review':
+                return messages.publications.underReview;
+            case 'working-paper':
+                return messages.publications.workingPaper;
+            default:
+                return messages.publications.inProgress;
+        }
+    };
 
     const renderCard = (pub: Publication, index: number) => {
         const articleUrl = pub.url || (pub.doi ? `https://doi.org/${pub.doi}` : undefined);
@@ -119,7 +132,7 @@ export default function PublicationsList({ config, publications, embedded = fals
                     )}
                     {isWorkingPaper(pub) && (
                         <p className="text-sm text-accent mb-2 font-medium">
-                            {pub.status === 'in-progress' ? 'In Progress' : 'Under Review'}
+                            {getWorkingPaperStatus(pub)}
                         </p>
                     )}
                     {pub.description && !isWorkingPaper(pub) && (
@@ -339,7 +352,7 @@ export default function PublicationsList({ config, publications, embedded = fals
                     {/* Working Papers */}
                     {workingPapers.length > 0 && (
                         <div>
-                            <h2 className="text-2xl font-bold text-accent mb-1">Working Papers</h2>
+                            <h2 className="text-2xl font-bold text-accent mb-1">{messages.publications.workingPapers}</h2>
                             <hr className="border-neutral-200 dark:border-neutral-700 mb-6" />
                             <div className="space-y-6">
                                 {workingPapers.map((pub, i) => renderCard(pub, i))}

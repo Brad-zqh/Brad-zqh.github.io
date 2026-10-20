@@ -44,6 +44,11 @@ export interface LocaleMessages {
     abstract: string;
     bibtex: string;
     code: string;
+    workingPapers: string;
+    workingPaper: string;
+    underReview: string;
+    underRevision: string;
+    inProgress: string;
   };
   footer: {
     lastUpdated: string;
@@ -97,6 +102,11 @@ const en: LocaleMessages = {
     abstract: 'Abstract',
     bibtex: 'BibTeX',
     code: 'Code',
+    workingPapers: 'Working Papers',
+    workingPaper: 'Working Paper',
+    underReview: 'Under Review',
+    underRevision: 'Under Revision',
+    inProgress: 'In Progress',
   },
   footer: {
     lastUpdated: 'Last updated',
@@ -150,6 +160,11 @@ const zh: LocaleMessages = {
     abstract: '摘要',
     bibtex: 'BibTeX',
     code: '代码',
+    workingPapers: '工作论文',
+    workingPaper: '工作论文',
+    underReview: '审稿中',
+    underRevision: '修改中',
+    inProgress: '研究进行中',
   },
   footer: {
     lastUpdated: '最近更新',

@@ -70,6 +70,8 @@ export type PublicationStatus =
   | 'published'
   | 'accepted'
   | 'under-review'
+  | 'under-revision'
+  | 'working-paper'
   | 'in-progress'
   | 'submitted'
   | 'in-preparation'
