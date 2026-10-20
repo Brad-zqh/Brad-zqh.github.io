@@ -10,7 +10,7 @@ import {
     MapPinIcon
 } from '@heroicons/react/24/outline';
 import { HeartIcon as HeartSolidIcon } from '@heroicons/react/24/solid';
-import { Github, Linkedin } from 'lucide-react';
+import { Github, Linkedin, QrCode } from 'lucide-react';
 import type { SiteConfig } from '@/lib/config';
 import { useMessages } from '@/lib/i18n/useMessages';
 import { useLocaleStore } from '@/lib/stores/localeStore';
@@ -41,6 +41,7 @@ interface ProfileProps {
 export default function Profile({ author, social, features, researchInterests }: ProfileProps) {
     const messages = useMessages();
     const locale = useLocaleStore((state) => state.locale);
+    const homepageUrl = 'https://brad-zqh.github.io/';
 
     const [hasLiked, setHasLiked] = useState(false);
     const [showThanks, setShowThanks] = useState(false);
@@ -196,6 +197,40 @@ export default function Profile({ author, social, features, researchInterests }:
                     </div>
                 </div>
             )}
+
+            {/* Homepage QR code */}
+            <div className="mb-6 rounded-xl border border-neutral-200/80 dark:border-neutral-700 bg-gradient-to-br from-white to-blue-50/70 dark:from-neutral-800 dark:to-blue-950/30 p-3.5 shadow-sm">
+                <a
+                    href={homepageUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={messages.profile.visitHomepage}
+                    className="group flex items-center gap-3"
+                >
+                    <span className="shrink-0 rounded-lg bg-white p-1.5 shadow-sm ring-1 ring-neutral-200 transition-transform duration-200 group-hover:scale-[1.03]">
+                        <Image
+                            src="/homepage-qr.svg"
+                            alt={messages.profile.homepageQr}
+                            width={88}
+                            height={88}
+                            className="block h-[88px] w-[88px]"
+                            unoptimized
+                        />
+                    </span>
+                    <span className="min-w-0">
+                        <span className="mb-1 flex items-center gap-1.5 text-sm font-semibold text-primary">
+                            <QrCode className="h-4 w-4 text-accent" aria-hidden="true" />
+                            {messages.profile.homepageQr}
+                        </span>
+                        <span className="block text-xs leading-relaxed text-neutral-600 dark:text-neutral-400">
+                            {messages.profile.scanHomepage}
+                        </span>
+                        <span className="mt-1 block break-all text-[11px] font-medium text-accent">
+                            brad-zqh.github.io
+                        </span>
+                    </span>
+                </a>
+            </div>
 
             {/* Like Button */}
             {features.enable_likes && (

@@ -22,6 +22,9 @@ export interface LocaleMessages {
     send: string;
     sendEmail: string;
     researchInterests: string;
+    homepageQr: string;
+    scanHomepage: string;
+    visitHomepage: string;
     like: string;
     liked: string;
     thanks: string;
@@ -72,6 +75,9 @@ const en: LocaleMessages = {
     send: 'Send',
     sendEmail: 'Send Email',
     researchInterests: 'Research Interests',
+    homepageQr: 'Homepage QR code',
+    scanHomepage: 'Scan to open this website',
+    visitHomepage: 'Visit Qiuhao Zhao’s homepage',
     like: 'Like',
     liked: 'Liked',
     thanks: 'Thanks!',
@@ -122,6 +128,9 @@ const zh: LocaleMessages = {
     send: '发送',
     sendEmail: '发送邮件',
     researchInterests: '研究兴趣',
+    homepageQr: '主页二维码',
+    scanHomepage: '扫码访问个人主页',
+    visitHomepage: '访问赵秋皓的个人主页',
     like: '点赞',
     liked: '已点赞',
     thanks: '感谢支持！',
